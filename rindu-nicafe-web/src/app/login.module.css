@@ -1,0 +1,218 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.mainContent {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.loginCard {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-login);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.logoContainer {
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--surface-container-low);
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--outline-variant);
+}
+
+.logoImage {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.title {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.iconLeft {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-left: 0.75rem;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: var(--outline);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  color: var(--on-surface);
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(54, 31, 26, 0.2);
+}
+
+.inputPassword {
+  padding-right: 2.5rem;
+}
+
+.toggleButton {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-right: 0.75rem;
+  display: flex;
+  align-items: center;
+  color: var(--outline);
+  transition: var(--transition);
+}
+
+.toggleButton:hover {
+  color: var(--primary);
+}
+
+.submitButton {
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: 0.75rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  margin-top: 1.5rem;
+}
+
+.submitButton:hover {
+  background-color: var(--surface-tint);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.forgotPasswordContainer {
+  margin-top: 1rem;
+}
+
+.forgotPasswordLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--secondary);
+  transition: var(--transition);
+}
+
+.forgotPasswordLink:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.footerText {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: shakeError 0.4s ease-in-out;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,166 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  password     String
+  nama         String
+  role         String    // "owner" or "karyawan"
+  kontak       String?
+  jadwal_shift String?
+  gaji_per_jam Float?
+  created_at   DateTime  @default(now())
+
+  absensi         Absensi[]
+  pesanan         Pesanan[]
+  pembelian_bahan PembelianBahan[]
+}
+
+model Absensi {
+  id        Int       @id @default(autoincrement())
+  user_id   Int
+  user      User      @relation(fields: [user_id], references: [id])
+  tanggal   DateTime
+  clock_in  DateTime?
+  clock_out DateTime?
+  foto_in   String?
+  foto_out  String?
+  jam_kerja Float?
+}
+
+model Meja {
+  id         Int       @id @default(autoincrement())
+  nomor_meja Int       @unique
+  kode_qr    String
+  status     String    // "kosong", "terisi"
+  
+  pesanan    Pesanan[]
+}
+
+model Pesanan {
+  id           Int       @id @default(autoincrement())
+  meja_id      Int?
+  meja         Meja?     @relation(fields: [meja_id], references: [id])
+  kasir_id     Int?
+  kasir        User?     @relation(fields: [kasir_id], references: [id])
+  tipe_pesanan String    // "dine_in", "takeaway"
+  status       String    // "menunggu", "dibayar", "diproses", "selesai"
+  total        Float
+  waktu        DateTime  @default(now())
+
+  detail_pesanan DetailPesanan[]
+  pembayaran     Pembayaran?
+  feedback       Feedback?
+}
+
+model DetailPesanan {
+  id         Int     @id @default(autoincrement())
+  pesanan_id Int
+  pesanan    Pesanan @relation(fields: [pesanan_id], references: [id])
+  menu_id    Int
+  menu       Menu    @relation(fields: [menu_id], references: [id])
+  jumlah     Int
+  subtotal   Float
+}
+
+model Kategori {
+  id   Int    @id @default(autoincrement())
+  nama String
+
+  menu Menu[]
+}
+
+model Menu {
+  id                  Int     @id @default(autoincrement())
+  kategori_id         Int
+  kategori            Kategori @relation(fields: [kategori_id], references: [id])
+  nama                String
+  harga               Float
+  deskripsi           String?
+  gambar              String?
+  status_ketersediaan Boolean @default(true)
+
+  detail_pesanan DetailPesanan[]
+  menu_bahan     MenuBahan[]
+}
+
+model Pembayaran {
+  id            Int      @id @default(autoincrement())
+  pesanan_id    Int      @unique
+  pesanan       Pesanan  @relation(fields: [pesanan_id], references: [id])
+  metode        String
+  status        String   // "pending", "berhasil", "gagal"
+  jumlah        Float
+  bukti_digital String?
+  waktu         DateTime @default(now())
+}
+
+model Feedback {
+  id         Int      @id @default(autoincrement())
+  pesanan_id Int      @unique
+  pesanan    Pesanan  @relation(fields: [pesanan_id], references: [id])
+  rating     Int
+  komentar   String?
+  tanggal    DateTime @default(now())
+}
+
+model BahanBaku {
+  id               Int      @id @default(autoincrement())
+  nama             String
+  jumlah_stok      Float
+  satuan           String
+  batas_minimum    Float
+  masa_kedaluwarsa DateTime?
+
+  menu_bahan      MenuBahan[]
+  pembelian_bahan PembelianBahan[]
+}
+
+model MenuBahan {
+  id             Int       @id @default(autoincrement())
+  menu_id        Int
+  menu           Menu      @relation(fields: [menu_id], references: [id])
+  bahan_id       Int
+  bahan          BahanBaku @relation(fields: [bahan_id], references: [id])
+  jumlah_dipakai Float
+}
+
+model Pemasok {
+  id     Int    @id @default(autoincrement())
+  nama   String
+  kontak String?
+  alamat String?
+
+  pembelian_bahan PembelianBahan[]
+}
+
+model PembelianBahan {
+  id         Int       @id @default(autoincrement())
+  bahan_id   Int
+  bahan      BahanBaku @relation(fields: [bahan_id], references: [id])
+  pemasok_id Int
+  pemasok    Pemasok   @relation(fields: [pemasok_id], references: [id])
+  user_id    Int
+  user       User      @relation(fields: [user_id], references: [id])
+  tanggal    DateTime  @default(now())
+  jumlah     Float
+  harga      Float
+}
+
+model Notifikasi {
+  id           Int      @id @default(autoincrement())
+  tipe         String   // "restock", "omzet", "sistem"
+  pesan        String
+  tujuan_role  String   // "owner", "karyawan"
+  referensi_id Int?
+  status       String   // "belum_dibaca", "dibaca"
+  waktu        DateTime @default(now())
+}

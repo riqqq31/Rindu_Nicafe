@@ -1,0 +1,140 @@
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.tableContainer {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--outline-variant);
+  overflow-x: auto;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+}
+
+.table tr {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.table tr:hover {
+  background: #f1f3f5;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.statusMenunggu {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.statusDibayar {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusDiproses {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.statusSelesai {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.strukItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #ddd;
+}
+
+.strukTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.paymentMethod {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}

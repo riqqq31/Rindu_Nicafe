@@ -1,0 +1,1419 @@
+UJIAN AKHIR SEMESTER
+REKAYASA PERANGKAT LUNAK
+KELOMPOK 3
+ 
+ 
+Disusun oleh:
+Ahmad Fauzi(1242002051)
+Ghalang(1242002075)
+Hosanna Jobel (1242002046)
+Moerice Joel Kalangit (1242002047)
+Seta Kananda (1242002006)
+Thoriiq Shiddiq Taqiyyuddin (1242002001)
+(SIF 42)
+ 
+Program Studi Sistem Informasi
+Fakultas Teknik dan Ilmu Komputer
+Universitas Bakrie
+2026
+BAB 1
+Pendahuluan
+1.1 Latar Belakang
+ Perkembangan teknologi informasi dan komunikasi saat ini telah membawa perubahan besar dalam dunia bisnis, termasuk sektor Usaha Mikro, Kecil, dan Menengah (UMKM) seperti bisnis café. Pengelolaan operasional yang masih bersifat manual sering kali menjadi hambatan utama dalam meningkatkan efisiensi dan kualitas layanan pelanggan. Rindu Nicafe, sebuah café yang didirikan pada pertengahan tahun 2023 di jagakarya, Jakarta Selatan, merupakan salah satu contoh UMKM yang sedang berkembang dan menyadari pentingnya digitalisasi operasional untuk menunjang pertumbuhan bisnisnya.
+ Berdasarkan hasil analisis kematangan proses bisnis menggunakan kerangka kerja BPOMM (Business Process Orientation Maturity Model) yang dilakukan sebelumnya, Rindu Nicafe saat ini berada pada Level 1 (Ad Hoc). Pada tingkat ini, sebagian besar proses operasional café masih bersifat informal, belum terstandardisasi, dan sangat bergantung pada ingatan atau kebijakan verbal sehari-hari. Beberapa area kritis menunjukkan nilai kematangan yang sangat rendah, seperti dimensi Orientasi Pelanggan (TU) yang hanya mencatat skor 1,33 disebabkan oleh tidak adanya wadah feedback formal, dimensi Orientasi Pemasok (VD) dengan skor 1,67 karena pembelian bahan baku yang masih transaksional di marketplace tanpa kontrak kerja sama, serta Manajemen SDM (UK) berskor 2,33 dengan sistem kehadiran karyawan yang masih menggunakan foto manual via pesan instan tanpa verifikasi lokasi yang valid.
+ Untuk menaikkan tingkat kematangan proses bisnis dari Level 1 (Ad Hoc) ke Level 2 (Defined), proses bisnis Rindu Nicafe harus mulai didefinisikan secara formal, didokumentasikan, dan didukung oleh sistem informasi yang terintegrasi. Pengembangan sistem informasi ini diharapkan mampu menyatukan berbagai fungsi operasional penting, seperti pemesanan mandiri melalui QR code di meja pelanggan, pencatatan transaksi kasir secara real-time, manajemen persediaan stok bahan baku dengan notifikasi otomatis, sistem absensi berbasis foto yang meminimalisir kecurangan, hingga pelaporan keuangan terpusat bagi pemilik (owner). Dengan diimplementasikannya Sistem Informasi Manajemen Operasional Rindu Nicafe ini, diharapkan seluruh hambatan operasional dapat teratasi sehingga café dapat meningkatkan kualitas layanan, meminimalkan risiko kehilangan stok, serta memiliki basis data yang kuat dalam mendukung pengambilan keputusan strategis.
+1.2 Profil Singkat Perusahaan/UMKM
+Rindu Nicafe merupakan usaha kuliner mandiri (café) yang berfokus pada penyajian aneka minuman kopi, non-kopi, serta makanan ringan. Berikut adalah ringkasan profil operasional Rindu Nicafe:
+Nama Usaha: Rindu Nicafe
+Tahun Berdiri: Pertengahan tahun 2023
+Lokasi Bisnis: Wilayah Jakarta Selatan
+Kapasitas SDM: 3 Karyawan operasional
+Waktu Operasional: Pukul 17:00 hingga 00:00 WIB (1 shift kerja harian)
+Skala Bisnis: Rata-rata transaksi harian Rp 200.000 (tidak menerima pembayaran tunai/hanya QRIS)
+Kondisi Sistem Saat Ini: Memiliki aplikasi pemesanan berbasis PHP/SaaS sederhana dengan fitur keranjang dan riwayat transaksi dasar, namun belum terintegrasi dengan modul manajemen stok bahan baku, rekap absensi karyawan, feedback pelanggan, maupun dashboard laporan eksekutif.
+1.3 Rumusan Masalah
+Berdasarkan latar belakang permasalahan di atas, dirumuskan beberapa masalah utama sebagai berikut:
+Bagaimana merancang sistem absensi karyawan yang mampu memvalidasi kehadiran secara lebih akurat dan terintegrasi dengan rekap jam kerja?
+Bagaimana mengelola ketersediaan stok bahan baku café secara real-time dan memberikan notifikasi restock ketika persediaan mencapai batas minimum?
+Bagaimana menyediakan wadah pengumpulan umpan balik (feedback) pelanggan secara digital guna meningkatkan dimensi Orientasi Pelanggan (TU)?
+Bagaimana membangun fitur pencatatan riwayat transaksi dengan pemasok (supplier) untuk mendukung dimensi Orientasi Pemasok (VD)?
+Bagaimana menyajikan laporan keuangan harian, mingguan, dan bulanan yang dinamis dan mudah diekspor untuk memudahkan pemilik dalam memantau kinerja café?
+1.4 Tujuan Pengembangan Sistem
+Pengembangan sistem informasi ini memiliki beberapa tujuan utama sebagai berikut:
+Menghasilkan modul absensi karyawan berbasis web dengan fitur upload foto selfie sebagai bukti kehadiran guna menstandarkan disiplin kerja karyawan.
+Membangun modul manajemen stok bahan baku café yang secara otomatis dapat memantau status persediaan serta mengirimkan notifikasi restock ke owner jika stok menipis.
+Mengembangkan modul feedback pelanggan berupa pengisian rating (1-5 bintang) dan ulasan komentar langsung setelah pembayaran divalidasi.
+Menyediakan fitur pencatatan data pemasok serta riwayat pembelian bahan baku untuk meningkatkan keteraturan hubungan kerja dengan vendor.
+Menyediakan modul dashboard laporan interaktif bagi owner dengan fitur ekspor data laporan dalam format PDF dan Excel.
+Membantu Rindu Nicafe memenuhi kriteria standardisasi proses bisnis guna menaikkan kematangan operasional dari Level 1 (Ad Hoc) ke Level 2 (Defined) sesuai framework BPOMM.
+1.5 Manfaat Sistem
+Sistem Informasi Manajemen Operasional Rindu Nicafe diharapkan memberikan manfaat yang signifikan bagi berbagai pihak:
+Bagi Pemilik (Owner): Memudahkan monitoring kehadiran karyawan, mengontrol pergerakan stok bahan baku tanpa harus selalu berada di café, memperoleh umpan balik pelanggan secara kuantitatif, serta mempercepat akses terhadap laporan keuangan untuk analisis performa bisnis café.
+Bagi Karyawan: Mempercepat proses absensi kehadiran harian, menyederhanakan pelaporan pembelian bahan baku, serta mempercepat input pesanan pelanggan yang memesan langsung melalui kasir.
+Bagi Pelanggan: Memberikan kemudahan dalam melihat menu dan memesan mandiri via scan QR code langsung dari meja, serta memberikan sarana penyampaian keluhan atau saran secara langsung, praktis, dan bersifat privat.
+1.6 Ruang Lingkup Sistem
+Untuk memastikan proses pengembangan sistem berjalan secara fokus dan terarah, ditetapkan batasan ruang lingkup sebagai berikut:
+Sistem yang dikembangkan berupa aplikasi berbasis web responsif yang dioptimalkan untuk diakses menggunakan perangkat laptop (kasir/owner) dan smartphone (karyawan/pelanggan).
+Sistem membedakan hak akses pengguna menjadi tiga aktor utama, yaitu Owner, Karyawan, dan Pelanggan.
+Fitur-fitur utama mencakup login/logout multi-role, pemesanan menu via scan QR code meja, input pesanan kasir, integrasi pembayaran digital QRIS, rekap stok bahan baku dan alert minimum, absensi foto selfie, form feedback pelanggan, serta ekspor laporan ke format PDF dan Excel.
+Sistem dikembangkan sebagai penambahan fitur (extension) dari aplikasi pemesanan dasar yang sudah berjalan sebelumnya.
+Sistem beroperasi secara online penuh (online-only) dan transaksi keuangan didesain tanpa menggunakan kas tunai (cashless), sepenuhnya mengandalkan pembayaran digital QRIS.
+BAB 2
+METODOLOGI
+2.1 Metode Penelitian
+Penelitian ini mengadopsi pendekatan studi kasus kualitatif yang bersifat deskriptif, dengan menjadikan Rindu Nicafe — sebuah UMKM cafe berskala mikro di Jakarta Selatan — sebagai objek pengembangan sistem. Pemilihan pendekatan ini didasarkan pada kebutuhan untuk memahami permasalahan operasional cafe secara menyeluruh dan kontekstual, sehingga sistem yang dihasilkan benar-benar berakar dari kondisi nyata bisnis yang dijalankan, bukan dari asumsi generik.
+Pengumpulan data dilakukan melalui tiga jalur yang saling melengkapi: wawancara terstruktur dengan pemilik Rindu Nicafe (Ariyo) selaku pengelola tunggal yang memiliki pemahaman komprehensif tentang seluruh aspek operasional; observasi langsung terhadap alur pelayanan cafe mulai dari pemesanan hingga penyajian selama jam operasional; serta kajian dokumen berupa jurnal analisis kematangan proses bisnis menggunakan BPOMM yang telah dilakukan sebelumnya. Data dari ketiga sumber tersebut divalidasi melalui triangulasi untuk memastikan konsistensi dan akurasi temuan sebelum ditransformasikan menjadi spesifikasi sistem.
+Untuk menghasilkan sistem yang terstruktur dan dapat dipertanggungjawabkan secara metodologis, pengembangan perangkat lunak dilakukan dengan mengimplementasikan kerangka kerja Scrum. Kerangka kerja ini dipilih karena karakteristiknya yang adaptif terhadap perubahan kebutuhan — sebuah kondisi yang sangat relevan mengingat proses bisnis Rindu Nicafe yang belum seluruhnya terdokumentasi secara formal pada saat penelitian dimulai.
+ 
+2.2 Prosedur Penelitian
+Pelaksanaan penelitian ini mengikuti sebuah alur prosedural yang disusun secara sistematis untuk memastikan setiap tahapan memberikan kontribusi nyata terhadap kualitas sistem yang dikembangkan. Prosedur penelitian terdiri dari lima tahapan berurutan yang dirancang agar hasil dari setiap fase menjadi masukan yang valid bagi fase berikutnya.
+[Diagram prosedur penelitian: Identifikasi Masalah → Studi Lapangan → Pengumpulan Data → Analisis Data → Pengembangan Sistem Scrum]
+Gambar 2.1 Alur Prosedur Penelitian
+Tahap pertama adalah identifikasi masalah, di mana tim peneliti memetakan kesenjangan antara kondisi operasional Rindu Nicafe saat ini — yang berada pada Level 1 (Ad Hoc) berdasarkan penilaian BPOMM — dengan kondisi ideal Level 2 (Defined) yang menjadi target peningkatan. Tahap kedua adalah studi lapangan melalui observasi dan wawancara mendalam dengan pemilik. Tahap ketiga adalah pengumpulan data yang menghasilkan gambaran menyeluruh tentang proses bisnis cafe. Tahap keempat adalah analisis data untuk mengidentifikasi kebutuhan fungsional dan nonfungsional sistem. Tahap kelima adalah pengembangan sistem menggunakan kerangka kerja Scrum yang terdiri dari pembuatan user stories, penyusunan product backlog, pelaksanaan sprint, scrum meeting, dan demo aplikasi.
+ 
+2.3 Kerangka Kerja Scrum pada Pengembangan Sistem Rindu Nicafe
+Scrum merupakan realisasi dari filosofi Agile yang mengorganisasikan pekerjaan pengembangan ke dalam siklus-siklus pendek yang disebut sprint. Kerangka kerja ini dipilih untuk proyek ini karena kemampuannya mengakomodasi ketidakpastian kebutuhan yang muncul secara bertahap seiring pendalaman pemahaman tentang operasional Rindu Nicafe, sekaligus memungkinkan tim beranggotakan lebih dari enam orang untuk bekerja secara paralel dan terkoordinasi dalam rentang waktu sekitar delapan belas hari.
+Tahapan kerangka kerja Scrum yang diimplementasikan pada penelitian ini mencakup lima langkah yang saling berkesinambungan, yaitu: (1) pembuatan user stories untuk mendeskripsikan kebutuhan dari sudut pandang pengguna; (2) penyusunan product backlog sebagai daftar terprioritas seluruh pekerjaan yang harus diselesaikan; (3) perencanaan dan pelaksanaan sprint yang masing-masing berlangsung antara dua hingga lima hari kerja; (4) scrum meeting harian sebagai mekanisme sinkronisasi dan deteksi hambatan; serta (5) demo dan review aplikasi untuk memvalidasi setiap increment yang dihasilkan bersama pemilik Rindu Nicafe.
+ 
+2.3.1 Pembuatan User Stories
+User stories dirumuskan berdasarkan hasil wawancara mendalam dengan pemilik Rindu Nicafe dan observasi langsung terhadap proses bisnis cafe. Setiap user story menggambarkan satu kebutuhan fungsional dari perspektif pengguna yang nantinya akan menjadi dasar penyusunan product backlog. Hasil perumusan user stories disajikan pada Tabel 2.1.
+ 
+Tabel 2.1 User Stories Sistem Informasi Manajemen Operasional Rindu Nicafe
+No
+User Stories
+Test Case
+1
+Sebagai Owner dan Karyawan, sistem harus memberikan gambaran rancangan keseluruhan proses operasional Rindu Nicafe melalui pemodelan diagram yang terstruktur sehingga alur kerja sistem dapat dipahami seluruh pemangku kepentingan sebelum tahap pembangunan dimulai.
+Konfirmasi bahwa setiap diagram yang dihasilkan merepresentasikan proses bisnis nyata Rindu Nicafe dan mendapat validasi dari pemilik usaha sebagai pemangku kepentingan utama.
+2
+Sebagai Owner, saya memerlukan rancangan tampilan antarmuka (mockup) dari sistem yang hendak dibangun agar dapat mengevaluasi kesesuaian desain visual dengan identitas merek Rindu Nicafe sebelum proses pengkodean dilaksanakan.
+Pastikan setiap halaman mockup mencerminkan nuansa warna cokelat sebagai identitas merek Rindu Nicafe dan telah mendapat persetujuan pemilik sebelum implementasi dimulai.
+3
+Sistem harus mampu mengelola seluruh data master operasional cafe secara terpusat, meliputi data menu dengan harga dan ketersediannya, data karyawan, serta data bahan baku yang menjadi komponen utama produksi.
+Pastikan setiap operasi tambah, lihat, ubah, dan hapus pada data master berjalan konsisten, tersimpan di database, dan perubahan terrefleksi secara real-time pada antarmuka pengguna.
+4
+Sistem harus mendukung seluruh alur pemesanan dan pembayaran digital tanpa uang tunai, mencakup pemesanan mandiri via scan QR code dari meja pelanggan maupun input pesanan melalui kasir, dengan validasi pembayaran QRIS secara otomatis.
+Pastikan alur dari pemilihan menu, checkout, hingga konfirmasi pembayaran QRIS berjalan tanpa kendala, dan notifikasi pesanan masuk diterima karyawan secara real-time di perangkat mereka.
+5
+Sistem harus menyediakan modul absensi karyawan yang mencatat waktu kedatangan dan kepulangan melalui bukti foto selfie, serta mengkalkulasi total jam kerja secara otomatis sebagai dasar penggajian.
+Verifikasi bahwa sistem berhasil menyimpan foto, stempel waktu clock-in dan clock-out, serta menampilkan rekap jam kerja yang dapat diakses Owner dari jarak jauh melalui perangkat apapun.
+6
+Sistem harus menghasilkan laporan keuangan, laporan stok bahan baku, dan rekap kinerja bisnis dalam tampilan grafis interaktif yang dapat difilter berdasarkan periode harian, mingguan, maupun bulanan, serta dapat diekspor ke format PDF dan Excel.
+Pastikan data pada laporan akurat dan konsisten dengan riwayat transaksi; proses ekspor menghasilkan file PDF dan Excel yang dapat dibuka dengan sempurna pada laptop maupun smartphone.
+7
+Sistem harus menyediakan kanal pengumpulan umpan balik pelanggan secara digital setelah transaksi selesai, serta modul pencatatan data pemasok dan riwayat pembelian bahan baku untuk mendukung peningkatan orientasi pelanggan dan orientasi pemasok.
+Verifikasi bahwa form feedback dapat diisi pelanggan tanpa hambatan pasca pembayaran, dan data pemasok beserta riwayat transaksi pengadaannya tersimpan lengkap serta dapat diakses dan difilter oleh Owner kapan saja.
+Sumber: Hasil wawancara dan analisis penelitian (2026)
+2.3.2 Pembuatan Product Backlog
+Berdasarkan ketujuh user stories yang telah dirumuskan, dilakukan breakdown terperinci untuk menghasilkan product backlog. Setiap butir backlog merepresentasikan sebuah unit pekerjaan yang dapat dikerjakan dan diselesaikan dalam satu sprint. Estimasi durasi pengerjaan memperhitungkan kapasitas tim enam orang dengan asumsi delapan jam kerja per hari. Tingkat kesulitan dikategorikan menjadi tiga tingkatan, yaitu Rendah, Sedang, dan Tinggi, berdasarkan kompleksitas teknis dan ketergantungan antar modul. Prioritas ditetapkan berdasarkan analisis kebutuhan dan kaitannya dengan peningkatan dimensi BPOMM yang menjadi sasaran proyek. Seluruh item product backlog disajikan pada Tabel 2.2.
+ 
+Tabel 2.2 Product Backlog Sistem Informasi Manajemen Operasional Rindu Nicafe
+No
+US Ref
+Fitur Product Backlog
+Est. (Jam)
+Tk. Kesulitan
+Prioritas
+Scrum Seq.
+1
+US-1
+Pengumpulan data lapangan (observasi & wawancara owner)
+8
+Rendah
+Tinggi
+Sprint 0
+2
+US-1
+Analisis kebutuhan awal dan identifikasi masalah operasional
+6
+Sedang
+Tinggi
+Sprint 0
+3
+US-1
+Konfigurasi repository, environment pengembangan, dan skema database awal
+6
+Sedang
+Tinggi
+Sprint 0
+4
+US-1
+Pembuatan use case diagram beserta deskripsi aktor
+5
+Sedang
+Tinggi
+Sprint 1
+5
+US-1
+Pembuatan activity diagram untuk 6 proses utama sistem
+5
+Sedang
+Tinggi
+Sprint 1
+6
+US-1
+Pembuatan sequence diagram untuk interaksi antar komponen sistem
+6
+Sedang
+Tinggi
+Sprint 1
+7
+US-1
+Pembuatan class diagram dan rancangan entity relationship database
+6
+Sedang
+Tinggi
+Sprint 1
+8
+US-2
+Perancangan mockup antarmuka pengguna (10 halaman utama sistem)
+8
+Sedang
+Tinggi
+Sprint 1
+9
+US-3
+Implementasi database dan koneksi server aplikasi web
+6
+Tinggi
+Tinggi
+Sprint 2
+10
+US-3
+Pembangunan modul autentikasi multi-role (Owner dan Karyawan)
+5
+Sedang
+Tinggi
+Sprint 2
+11
+US-3
+Pembangunan modul kelola menu (CRUD, status ketersediaan, gambar)
+5
+Sedang
+Tinggi
+Sprint 2
+12
+US-4
+Pembangunan modul pemesanan mandiri via scan QR Code meja
+8
+Tinggi
+Tinggi
+Sprint 2
+13
+US-4
+Pembangunan modul input pesanan kasir (dine-in dan takeaway)
+6
+Tinggi
+Tinggi
+Sprint 2
+14
+US-4
+Integrasi pembayaran QRIS dengan validasi status otomatis
+8
+Tinggi
+Tinggi
+Sprint 2
+15
+US-3
+Pembangunan modul manajemen stok dan notifikasi restock otomatis
+6
+Tinggi
+Tinggi
+Sprint 2
+16
+US-5
+Pembangunan modul absensi karyawan berbasis foto selfie (clock-in/out)
+6
+Tinggi
+Tinggi
+Sprint 2
+17
+US-7
+Pembangunan modul feedback pelanggan (rating bintang dan komentar)
+5
+Sedang
+Tinggi
+Sprint 3
+18
+US-7
+Pembangunan modul data pemasok dan riwayat pembelian bahan baku
+4
+Sedang
+Sedang
+Sprint 3
+19
+US-6
+Pembangunan dashboard laporan keuangan dengan ekspor PDF dan Excel
+7
+Tinggi
+Tinggi
+Sprint 3
+20
+US-5
+Pembangunan rekap absensi dan kalkulasi upah karyawan per bulan
+4
+Sedang
+Sedang
+Sprint 3
+21
+US-1,2,3,4,5,6,7
+Pengujian black box testing seluruh modul sistem
+5
+Sedang
+Tinggi
+Sprint 3
+22
+US-1,2,3,4,5,6,7
+User Acceptance Testing (UAT) bersama owner Rindu Nicafe
+3
+Rendah
+Tinggi
+Sprint 3
+23
+US-1
+Penyusunan BAB V (implementasi) dan BAB VI (pengujian)
+4
+Sedang
+Tinggi
+Sprint 4
+24
+US-1
+Penyusunan BAB VII (kesimpulan) dan integrasi laporan lengkap
+3
+Rendah
+Tinggi
+Sprint 4
+25
+US-1
+Penulisan artikel ilmiah format jurnal SINTA dan cek Turnitin
+6
+Sedang
+Tinggi
+Sprint 4
+26
+US-1
+Finalisasi, unggah ke e-Learning, dan persiapan presentasi
+2
+Rendah
+Tinggi
+Sprint 4
+Total
+143 Jam
+ 
+ 
+ 
+ 
+Sumber: Hasil analisis dan perencanaan penelitian (2026)
+2.3.3 Perencanaan Sprint
+Seluruh item pada product backlog dieksekusi dalam lima sprint yang mencakup rentang waktu 30 Juni hingga 17 Juli 2026, dengan total durasi efektif delapan belas hari kerja. Penetapan durasi masing-masing sprint mempertimbangkan kompleksitas pekerjaan, ketergantungan antar modul, dan kapasitas tim. Gambaran keseluruhan perencanaan sprint dalam bentuk gantt chart waktu pengerjaan disajikan pada Tabel 2.3, sedangkan rincian pekerjaan tiap sprint dijabarkan pada Tabel 2.4 hingga Tabel 2.8.
+ 
+Tabel 2.3 Gantt Chart Waktu Pengerjaan Sprint
+Kegiatan / Sprint
+Periode
+Durasi
+Fokus Utama
+Total Jam
+Sprint 0 – Inisiasi & Persiapan
+30 Jun – 2 Jul 2026
+3 hari
+Wawancara, analisis awal, setup
+20 Jam
+Sprint 1 – Analisis & Desain
+3 – 7 Jul 2026
+5 hari
+Diagram UML, mockup UI
+30 Jam
+Sprint 2 – Implementasi Inti
+8 – 12 Jul 2026
+5 hari
+Modul utama: auth, menu, pemesanan, stok, absensi
+50 Jam
+Sprint 3 – Fitur Lanjutan & Pengujian
+13 – 15 Jul 2026
+3 hari
+Feedback, laporan, pemasok, BBT, UAT
+28 Jam
+Sprint 4 – Dokumentasi & Finalisasi
+16 – 17 Jul 2026
+2 hari
+Laporan, artikel, submit e-Learning
+15 Jam
+PRESENTASI & SUBMIT
+18 Jul 2026
+1 hari
+Presentasi kepada dosen penguji
+– Jam
+Sumber: Perencanaan tim pengembang (2026)
+A. Sprint 0 – Inisiasi dan Persiapan (30 Jun – 2 Jul 2026)
+Sprint 0 merupakan fase pembuka yang berfokus pada peletakan fondasi proyek. Seluruh anggota tim berkumpul untuk menyepakati pembagian peran Scrum, melakukan wawancara terstruktur dengan pemilik Rindu Nicafe, serta menyiapkan lingkungan pengembangan yang diperlukan. Rincian pekerjaan Sprint 0 disajikan pada Tabel 2.4.
+ 
+Tabel 2.4 Rincian Pekerjaan Sprint 0
+Fitur / Aktivitas Sprint
+Estimasi (Jam)
+Pelaksana
+Pengumpulan data lapangan (observasi & wawancara owner Ariyo)
+8
+PM & System Analyst
+Analisis kebutuhan awal dan identifikasi masalah operasional Rindu Nicafe
+6
+PM & System Analyst
+Konfigurasi repository GitHub, environment server, dan skema database awal
+6
+PM & System Analyst
+Total
+20 Jam
+ 
+Sumber: Perencanaan tim pengembang (2026)
+B. Sprint 1 – Analisis dan Desain Sistem (3 – 7 Jul 2026)
+Sprint 1 memusatkan seluruh kapasitas tim pada perancangan sistem sebelum satu baris kode pun ditulis. Tahapan ini menghasilkan artefak desain yang menjadi cetak biru implementasi pada sprint berikutnya. Dalam sprint ini seluruh diagram UML dirancang sekaligus mockup antarmuka pengguna untuk sepuluh halaman utama sistem diselesaikan. Rincian pekerjaan Sprint 1 disajikan pada Tabel 2.5.
+ 
+Tabel 2.5 Rincian Pekerjaan Sprint 1
+Fitur / Aktivitas Sprint
+Estimasi (Jam)
+Pelaksana
+Pembuatan use case diagram beserta deskripsi 3 aktor utama sistem
+5
+System Analyst & Designer
+Pembuatan activity diagram untuk 6 proses bisnis utama
+5
+System Analyst & Designer
+Pembuatan sequence diagram interaksi antar komponen (minimal 5 alur)
+6
+System Analyst & Designer
+Pembuatan class diagram dan entity relationship diagram (ERD)
+6
+System Analyst & Designer
+Perancangan mockup antarmuka pengguna untuk 10 halaman utama sistem
+8
+System Analyst & Designer
+Total
+30 Jam
+ 
+Sumber: Perencanaan tim pengembang (2026)
+C. Sprint 2 – Implementasi Modul Inti (8 – 12 Jul 2026)
+Sprint 2 merupakan sprint dengan beban pekerjaan terbesar karena menjadi tulang punggung implementasi seluruh modul yang mendukung proses transaksi harian Rindu Nicafe. Dua orang programmer bekerja secara paralel dengan pembagian modul yang telah disepakati saat sprint planning. Rincian pekerjaan Sprint 2 disajikan pada Tabel 2.6.
+ 
+Tabel 2.6 Rincian Pekerjaan Sprint 2
+Fitur / Aktivitas Sprint
+Estimasi (Jam)
+Pelaksana
+Implementasi database dan konfigurasi server hosting
+6
+2 Programmer
+Modul autentikasi multi-role (Owner dan Karyawan)
+5
+2 Programmer
+Modul kelola menu (CRUD, toggle ketersediaan, gambar)
+5
+2 Programmer
+Modul pemesanan mandiri pelanggan via scan QR Code meja
+8
+2 Programmer
+Modul input pesanan kasir (dine-in dan takeaway)
+6
+2 Programmer
+Integrasi pembayaran QRIS dengan polling status otomatis
+8
+2 Programmer
+Modul manajemen stok bahan baku dan notifikasi restock
+6
+2 Programmer
+Modul absensi karyawan berbasis foto selfie (clock-in dan clock-out)
+6
+2 Programmer
+Total
+50 Jam
+ 
+Sumber: Perencanaan tim pengembang (2026)
+D. Sprint 3 – Fitur Lanjutan dan Pengujian (13 – 15 Jul 2026)
+Sprint 3 memiliki dua tujuan utama yang berjalan secara paralel: pembangunan fitur-fitur yang mendukung peningkatan dimensi BPOMM dengan skor rendah (orientasi pelanggan dan orientasi pemasok), serta pelaksanaan pengujian sistem secara menyeluruh. Pengujian dilakukan dalam dua tahap: black box testing yang dilakukan oleh Software Tester dari tim, dilanjutkan dengan User Acceptance Testing bersama pemilik Rindu Nicafe. Rincian pekerjaan Sprint 3 disajikan pada Tabel 2.7.
+ 
+Tabel 2.7 Rincian Pekerjaan Sprint 3
+Fitur / Aktivitas Sprint
+Estimasi (Jam)
+Pelaksana
+Modul feedback pelanggan (rating 1-5 bintang dan komentar opsional)
+5
+Tim & Owner
+Modul data pemasok dan riwayat pembelian bahan baku
+4
+Tim & Owner
+Dashboard laporan keuangan dengan ekspor PDF dan Excel
+7
+Tim & Owner
+Rekap absensi dan kalkulasi jam kerja untuk penggajian
+4
+Tim & Owner
+Black box testing seluruh modul sistem (FR01–FR15)
+5
+Tim & Owner
+User Acceptance Testing bersama pemilik Rindu Nicafe (Ariyo)
+3
+Tim & Owner
+Total
+28 Jam
+ 
+Sumber: Perencanaan tim pengembang (2026)
+E. Sprint 4 – Dokumentasi dan Finalisasi (16 – 17 Jul 2026)
+Sprint 4 difokuskan sepenuhnya pada penyusunan laporan akhir, penulisan artikel ilmiah sesuai format jurnal SINTA, serta persiapan presentasi. Pada sprint ini Project Manager berperan aktif mengkoordinasikan integrasi seluruh bab laporan yang dikerjakan secara terpisah oleh masing-masing anggota tim. Pemeriksaan similarity menggunakan Turnitin wajib diselesaikan pada sprint ini untuk memastikan artikel ilmiah berada di bawah ambang batas 15%. Rincian pekerjaan Sprint 4 disajikan pada Tabel 2.8.
+ 
+Tabel 2.8 Rincian Pekerjaan Sprint 4
+Fitur / Aktivitas Sprint
+Estimasi (Jam)
+Pelaksana
+Penyusunan BAB V Implementasi dan BAB VI Pengujian
+4
+PM & Tim
+Penyusunan BAB VII Kesimpulan dan integrasi laporan lengkap
+3
+PM & Tim
+Penulisan artikel ilmiah format jurnal SINTA 1-4 dan cek Turnitin
+6
+PM & Tim
+Finalisasi laporan, unggah ke e-Learning, persiapan presentasi
+2
+PM & Tim
+Total
+15 Jam
+ 
+Sumber: Perencanaan tim pengembang (2026)
+2.3.4 Scrum Meeting
+Untuk menjaga sinkronisasi dan deteksi hambatan secara dini, tim melaksanakan scrum meeting singkat setiap hari kerja. Forum ini dirancang agar setiap anggota tim dapat melaporkan tiga hal secara ringkas: pekerjaan yang berhasil diselesaikan pada hari sebelumnya, pekerjaan yang direncanakan untuk hari berjalan, serta hambatan teknis maupun non-teknis yang berpotensi mengganggu kelancaran sprint.
+Pelaksanaan meeting dilakukan secara hibrida — tatap muka langsung ketika seluruh tim dapat berkumpul, atau melalui platform komunikasi digital pada hari-hari dengan jadwal yang tidak memungkinkan pertemuan fisik. Durasi setiap sesi dibatasi maksimal lima belas menit agar tidak mengganggu waktu pengerjaan yang sangat terbatas. Seluruh catatan hambatan dan keputusan yang diambil dalam meeting didokumentasikan oleh Scrum Master sebagai bahan evaluasi pada sprint retrospective.
+Selain daily scrum, pada setiap akhir sprint dilaksanakan sprint review bersama pemilik Rindu Nicafe untuk mengevaluasi increment yang telah diselesaikan. Umpan balik yang diterima dari pemilik pada setiap sprint review langsung dimasukkan ke dalam product backlog sebagai item perbaikan atau penyesuaian untuk sprint berikutnya.
+ 
+2.3.5 Demo dan Review Aplikasi
+Tahapan demo aplikasi merupakan mekanisme validasi yang paling krusial dalam kerangka kerja Scrum yang diimplementasikan pada proyek ini. Berbeda dari pengujian teknis yang dilakukan oleh tim internal, demo aplikasi melibatkan pemilik Rindu Nicafe secara langsung sebagai pengguna akhir yang paling mengerti kebutuhan nyata bisnisnya.
+Demo dilaksanakan dalam dua sesi. Sesi pertama diselenggarakan setelah Sprint 2 selesai, dengan agenda memperlihatkan fungsionalitas modul inti sistem kepada pemilik, mencakup alur pemesanan via QR, proses pembayaran QRIS, manajemen stok, dan modul absensi karyawan. Sesi kedua dilaksanakan setelah Sprint 3, dengan agenda memvalidasi modul feedback pelanggan, dashboard laporan, dan manajemen pemasok yang baru diselesaikan sekaligus mengonfirmasi hasil perbaikan dari temuan UAT.
+Proses demo dilakukan dengan cara meminta pemilik untuk mengoperasikan sistem secara mandiri menggunakan perangkatnya sendiri, sehingga hambatan usability yang tidak terdeteksi selama pengujian internal dapat teridentifikasi dan diperbaiki sebelum deadline pengumpulan. Setiap temuan dari sesi demo dicatat dan diklasifikasikan berdasarkan urgensinya: critical (harus diperbaiki segera), major (harus diperbaiki sebelum submit), atau minor (dicatat sebagai catatan pengembangan lanjutan).
+BAB III
+ANALISIS KEBUTUHAN SISTEM
+3.1 Identifikasi Permasalahan
+Berdasarkan hasil wawancara dengan pemilik Rindu Nicafe (Ariyo) dan analisis jurnal BPOMM yang telah dilakukan sebelumnya, teridentifikasi beberapa permasalahan utama yang dihadapi dalam operasional bisnis café. Rindu Nicafe yang berdiri pada pertengahan tahun 2023 di wilayah Jakarta Selatan saat ini beroperasi dengan 3 karyawan dan rata-rata transaksi Rp 200.000 per hari. Café beroperasi setiap hari dari pukul 17:00 hingga 00:00 WIB dengan 1 shift kerja.
+Berikut adalah identifikasi masalah yang ditemukan beserta dampak operasionalnya:
+Tabel 3.1 Identifikasi Permasalahan Rindu Nicafe
+No
+Masalah
+Dampak Operasional
+Sumber Data
+1
+Tidak ada struktur organisasi formal
+Pembagian tugas informal berdasarkan shift; tidak ada dokumentasi jabatan sehingga menimbulkan risiko operasional saat turnover karyawan
+Wawancara
+2
+Pengukuran
+kinerja tidak terstandar
+KPI hanya diukur dari grafik omzet; tidak ada metrik berbasis proses (waktu, biaya, kualitas) sehingga sulit mengidentifikasi inefisiensi
+wawancara
+3
+Orientasi pelanggan sangat rendah (TU =
+1,33)
+Tidak ada sistem pengumpulan feedback; ulasan Google Maps/Instagram diabaikan sehingga keputusan menu dan layanan tidak berbasis data pelanggan
+Jurnal
+BPOMM &
+Wawancara
+4
+Orientasi pemasok transaksional (VD
+= 1,67)
+Pembelian bahan baku via Shopee tanpa kontrak; tidak ada komunikasi terstruktur sehingga rentan keterlambatan stok dan harga tidak konsisten
+Jurnal
+BPOMM &
+Wawancara
+5
+Manajemen SDM informal (UK =
+2,33)
+Tidak ada pelatihan terstruktur, evaluasi karyawan hanya saat ada masalah sehingga kompetensi sulit berkembang
+Jurnal
+BPOMM
+6
+Sistem absensi manual (foto)
+Absensi menggunakan foto di awal buka dan penutup café; tidak ada validasi lokasi yang akurat
+Wawancara
+7
+Marketing yang kurang
+Akun Instagram dan Google Maps tidak aktif dikelola; tidak ada integrasi promosi dengan sistem yang ada
+Wawancara
+8
+Tidak ada sistem feedback pelanggan
+Pelanggan hanya bisa menyampaikan keluhan secara langsung kepada owner; tidak ada data kuantitatif kepuasan pelanggan
+Wawancara
+3.2 Analisis Proses Bisnis
+Berdasarkan hasil wawancara dan analisis jurnal BPMN yang telah dilakukan pada mata kuliah Sistem Informasi Manajemen, proses bisnis utama Rindu Nicafe dapat diidentifikasi sebagai berikut:
+3.2.1 Proses Pemesanan dan Transaksi
+Pelanggan dapat memesan melalui dua kanal: scan QR code yang tersedia di meja atau langsung melalui kasir. Pemesanan via scan QR di meja lebih sering digunakan oleh pelanggan. Setelah memilih menu, pelanggan melakukan pembayaran melalui QRIS (tidak menerima pembayaran cash). Setelah pembayaran tervalidasi, karyawan akan menyiapkan dan mengantarkan pesanan ke meja pelanggan. Rata-rata waktu dari pemesanan hingga penyajian adalah 5-10 menit. Bukti pembayaran dikirim secara digital. Untuk pesanan takeaway, pelanggan cukup memberitahu karyawan. Sistem juga menampilkan status ketersediaan menu sehingga menu yang sudah habis tidak dapat dipesan.
+3.2.2 Proses Manajemen Stok
+Pengadaan bahan baku dilakukan melalui Shopee. Semua karyawan bertanggung jawab dalam proses restock, di mana ketika barang habis, karyawan langsung membeli dan melaporkan ke pemilik. Terdapat prioritas stok untuk bahan utama seperti kopi yang harus selalu tersedia, sementara bahan lainnya dibeli setelah stok habis. Saat ini tidak ada sistem Bill of Materials atau konversi bahan baku ke produk jadi. Untuk bahan dengan masa kedaluwarsa cepat (seperti roti), pembelian dilakukan dalam jumlah kecil.
+3.2.3 Proses Manajemen Karyawan
+Rindu Nicafe memiliki 3 karyawan yang bekerja dalam 1 shift (pukul 18:00-00:00). Absensi dilakukan dengan cara foto di awal buka dan penutup café. Tidak ada sistem keterlambatan, izin, atau cuti yang formal; jika ada yang izin, karyawan bertukar jadwal satu sama lain. Penggajian berdasarkan jam kerja. Pemilik memantau kehadiran karyawan melalui CCTV café.
+3.2.4 Proses Pelaporan
+Pemilik paling sering melihat laporan keuangan dan mengaksesnya setiap hari. Format laporan yang dibutuhkan adalah PDF dan Excel. Saat ini belum ada target KPI yang dipantau, namun pemilik membutuhkan notifikasi otomatis (misalnya jika omzet hari ini di bawah target).
+3.3 Kebutuhan Fungsional
+Kebutuhan fungsional merupakan kebutuhan yang mendeskripsikan fungsi fungsi yang harus dapat dilakukan oleh sistem. Berdasarkan hasil analisis wawancara dan identifikasi masalah, berikut adalah kebutuhan fungsional Sistem Informasi Manajemen Operasional Rindu Nicafe:
+Tabel 3.2 Kebutuhan Fungsional Sistem
+Kode
+Kebutuhan Fungsional
+Deskripsi
+Prioritas
+FR-
+01
+Manajemen
+Autentikasi
+Sistem harus menyediakan fitur login dan logout menggunakan username dan password dengan pembagian hak akses berdasarkan role
+(Owner dan Karyawan)
+Tinggi
+FR-
+02
+Pemesanan via
+QR Code
+Sistem harus menyediakan fitur pemesanan menu melalui scan QR code yang tersedia di meja pelanggan, termasuk menampilkan menu, menambahkan ke keranjang, dan melakukan checkout
+Tinggi
+ 
+FR-
+03
+Pemesanan via
+Kasir
+Sistem harus menyediakan antarmuka kasir untuk menginput pesanan pelanggan yang memesan langsung di kasir atau takeaway
+Tinggi
+FR-
+04
+Integrasi
+Pembayaran
+QRIS
+Sistem harus mendukung pembayaran melalui QRIS dan memvalidasi status pembayaran secara otomatis serta mengirimkan bukti pembayaran digital
+Tinggi
+FR-
+05
+Manajemen
+Menu
+Sistem harus menyediakan fitur CRUD (Create, Read, Update, Delete) untuk data menu termasuk nama, harga, kategori, gambar, dan status ketersediaan
+Tinggi
+FR-
+06
+Manajemen
+Stok Bahan
+Baku
+Sistem harus mencatat stok bahan baku, menampilkan status stok, dan menampilkan menu yang sudah habis di tampilan pelanggan
+Tinggi
+FR-
+07
+Notifikasi
+Restock
+Otomatis
+Sistem harus mengirimkan notifikasi ketika stok bahan baku mencapai batas minimum, terutama untuk bahan prioritas seperti kopi
+Sedang
+FR-
+08
+Pencatatan
+Riwayat
+Pembelian
+Bahan Baku
+Sistem harus mencatat riwayat pembelian bahan baku dari pemasok termasuk tanggal, jumlah, harga, dan pemasok
+Sedang
+FR-
+09
+Absensi
+Karyawan
+Sistem harus menyediakan fitur absensi karyawan dengan foto sebagai bukti kehadiran di awal dan akhir shift
+Sedang
+FR-
+10
+Manajemen
+Karyawan
+Sistem harus menyediakan fitur pengelolaan data karyawan termasuk jadwal shift, data kehadiran, dan perhitungan gaji berdasarkan jam kerja
+Sedang
+FR-
+11
+Sistem
+Feedback
+Pelanggan
+Sistem harus menyediakan fitur rating dan ulasan bagi pelanggan setelah transaksi selesai untuk mengumpulkan informasi kepuasan pelanggan
+Sedang
+FR-
+12
+Dashboard
+Laporan
+Sistem harus menyediakan dashboard yang menampilkan laporan keuangan
+Tinggi
+ 
+ 
+harian/mingguan/bulanan dengan kemampuan ekspor ke format PDF dan Excel
+ 
+FR-
+13
+Riwayat
+Transaksi
+Sistem harus menyimpan dan menampilkan riwayat seluruh transaksi yang terjadi secara terpusat dan real-time
+Tinggi
+FR-
+14
+Notifikasi
+Otomatis untuk
+Owner
+Sistem harus mengirimkan notifikasi otomatis kepada owner jika ada kondisi tertentu seperti omzet di bawah target atau stok menipis
+Rendah
+FR-
+15
+Manajemen
+Pemasok
+Sistem harus menyediakan fitur manajemen pemasok sederhana meliputi daftar supplier dan riwayat pembelian
+Rendah
+3.4 Kebutuhan Nonfungsional
+Kebutuhan nonfungsional merupakan kebutuhan yang mendeskripsikan batasan, kualitas, dan karakteristik yang harus dimiliki oleh sistem. Berikut adalah kebutuhan nonfungsional Sistem Informasi Manajemen Operasional Rindu Nicafe:
+Tabel 3.3 Kebutuhan Nonfungsional Sistem
+Kode
+Kategori
+Kebutuhan Nonfungsional
+Deskripsi
+NFR-
+01
+Performance
+Waktu Respon
+Sistem
+Sistem harus mampu memproses transaksi dalam waktu kurang dari 3 detik, terutama pada saat jam ramai, mengingat kecepatan respon sangat penting bagi operasional café
+NFR-
+02
+Reliability
+Ketersediaan
+Sistem
+Sistem harus tersedia 99% selama jam operasional café (17:00-00:00 WIB) setiap hari. Sistem membutuhkan koneksi internet karena tidak diperlukan fitur offline
+NFR-
+03
+Security
+Keamanan Hak
+Akses
+Sistem harus membedakan hak akses antara Owner dan Karyawan. Karyawan tidak boleh mengakses laporan keuangan namun boleh mengakses transaksi harian.
+ 
+ 
+ 
+Autentikasi menggunakan username dan password
+NFR-
+04
+Usability
+Kemudahan
+Penggunaan
+Antarmuka sistem harus sederhana dan mudah digunakan oleh karyawan tanpa pelatihan khusus. Navigasi harus cepat dan fitur lengkap dalam satu layar
+NFR-
+05
+Usability
+Desain Visual
+Tampilan sistem menggunakan nuansa warna cokelat sesuai dengan identitas brand Rindu Nicafe, dengan menampilkan logo café
+NFR-
+06
+Compatibility
+Kompatibilitas
+Perangkat
+Sistem harus dapat diakses melalui laptop dan smartphone melalui web browser
+(responsive design)
+NFR-
+07
+Reliability
+Backup Data
+Sistem harus menyediakan fitur backup data otomatis secara berkala untuk mencegah kehilangan data
+NFR-
+08
+Scalability
+Skalabilitas
+Sistem harus mampu menangani penambahan menu baru dan peningkatan jumlah transaksi seiring perkembangan bisnis
+3.5 Software Requirements Specification (SRS)
+Software Requirements Specification (SRS) disusun berdasarkan standar IEEE 830 untuk mendokumentasikan kebutuhan perangkat lunak Sistem Informasi Manajemen Operasional Rindu Nicafe secara terstruktur dan komprehensif.
+3.5.1 Pendahuluan (Introduction)
+3.5.1.1 Tujuan Dokumen (Purpose)
+Dokumen SRS ini bertujuan untuk mendeskripsikan secara lengkap dan rinci kebutuhan perangkat lunak Sistem Informasi Manajemen Operasional Rindu Nicafe. Dokumen ini ditujukan untuk seluruh pemangku kepentingan termasuk tim pengembang, pemilik café, dan dosen pengampu sebagai acuan dalam proses perancangan, implementasi, dan pengujian sistem.
+3.5.1.2 Ruang Lingkup (Scope)
+Sistem yang akan dikembangkan bernama "Sistem Informasi Manajemen Operasional Rindu Nicafe". Sistem ini merupakan aplikasi berbasis web yang dirancang untuk mendigitalisasi dan menstandarisasi proses operasional Rindu Nicafe dari Level 1 (Ad Hoc) menuju Level 2 (Defined) berdasarkan kerangka BPOMM.
+Ruang lingkup sistem mencakup:
+1.  Modul pemesanan terintegrasi (QR self-order dan kasir)
+2.  Modul manajemen stok dan bahan baku
+3.  Modul absensi dan manajemen karyawan
+4.  Modul feedback pelanggan
+5.  Modul dashboard laporan dan manajemen
+6.  Modul manajemen pemasok
+7.  Modul autentikasi dan manajemen hak akses
+Sistem ini merupakan penambahan fitur dari sistem yang sudah ada (bukan menggantikan sepenuhnya) sesuai dengan keinginan pemilik.
+3.5.1.3 Definisi, Akronim, dan Singkatan
+Tabel 3.4 Daftar Istilah
+Istilah
+Definisi
+QRIS
+Quick Response Code Indonesian Standard – standar pembayaran digital menggunakan QR Code di Indonesia
+QR
+Code
+Quick Response Code – kode matriks dua dimensi yang dapat dipindai menggunakan kamera smartphone
+SRS
+Software Requirements Specification – dokumen spesifikasi kebutuhan perangkat lunak
+BPOMM
+Business Process Orientation Maturity Model – model kematangan orientasi proses bisnis
+CRUD
+Create, Read, Update, Delete – operasi dasar pada pengelolaan data
+SDLC
+Software Development Life Cycle – siklus hidup pengembangan perangkat lunak
+UMKM
+Usaha Mikro, Kecil, dan Menengah
+MVP
+Minimum Viable Product – produk dengan fitur minimum yang dapat digunakan
+UI
+User Interface – antarmuka pengguna
+3.5.1.4 Referensi
+1.  IEEE Std 830-1998 – IEEE Recommended Practice for Software
+Requirements Specifications
+2.  Jurnal Analisis Kematangan Proses Bisnis Rindu Nicafe berdasarkan BPOMM (Jurnal_RinduNicafe_Revisi)
+3.  Hasil wawancara dengan pemilik Rindu Nicafe (Ariyo) – Juli 2026
+3.5.1.5 Gambaran Umum Dokumen
+Dokumen SRS ini terdiri dari tiga bagian utama: Pendahuluan yang menjelaskan tujuan dan ruang lingkup; Deskripsi Umum yang memberikan gambaran konteks sistem; dan Kebutuhan Spesifik yang merinci kebutuhan fungsional dan nonfungsional sistem.
+3.5.2 Deskripsi Umum (Overall Description)
+3.5.2.1 Perspektif Produk (Product Perspective)
+Sistem Informasi Manajemen Operasional Rindu Nicafe merupakan sistem baru yang dikembangkan sebagai penambahan fitur dari sistem yang sudah ada. Sistem sebelumnya yang dikembangkan sendiri oleh pemilik berbasis PHP/SaaS sudah memiliki fitur tambah ke keranjang, lihat riwayat, dan checkout. Sistem baru ini akan melengkapi fitur yang belum tersedia seperti manajemen stok terintegrasi, absensi karyawan, feedback pelanggan, dan dashboard laporan manajemen.
+Sistem ini bersifat standalone berbasis web yang dapat diakses melalui laptop dan smartphone. Sistem memerlukan koneksi internet untuk beroperasi dan terintegrasi dengan sistem pembayaran QRIS.
+3.5.2.2 Fungsi Produk (Product Functions)
+Secara garis besar, sistem memiliki fungsi-fungsi utama berikut:
+1.  Manajemen Autentikasi – Login, logout, dan pengelolaan hak akses berdasarkan role
+2.  Manajemen Pemesanan – Pemesanan via QR code dan kasir, termasuk pemesanan takeaway
+3.  Manajemen Pembayaran – Integrasi QRIS, validasi pembayaran, dan pengiriman bukti digital
+4.  Manajemen Menu – CRUD data menu dengan status ketersediaan
+5.  Manajemen Stok – Pencatatan stok, notifikasi restock, dan riwayat pembelian
+6.  Manajemen Karyawan – Data karyawan, absensi, dan perhitungan gaji
+7.  Feedback Pelanggan – Rating dan ulasan dari pelanggan
+8.  Dashboard dan Laporan – Laporan keuangan dengan ekspor PDF/Excel 3.5.2.3 
+Karakteristik Pengguna (User Characteristics) Tabel 3.5 Karakteristik Pengguna
+Pengguna
+Deskripsi
+Level Teknis
+Hak Akses
+Owner
+(Ariyo)
+Pemilik sekaligus pengelola operasional café. Mengambil keputusan strategis berdasarkan data laporan
+Menengah (mampu mengembangkan
+aplikasi sendiri)
+Akses penuh ke seluruh fitur sistem termasuk laporan keuangan, dashboard manajemen, dan pengaturan sistem
+Karyawan
+/ Kasir
+Pengguna harian sistem yang menginput pesanan, melakukan absensi, dan mengelola stok. Terdiri dari 3 orang (2 pria, 1 wanita)
+Dasar
+Akses ke fitur transaksi harian, absensi, dan manajemen stok. Tidak dapat mengakses laporan keuangan
+Pelanggan
+Pengunjung café yang mayoritas mahasiswa dan Gen Z. Melakukan pemesanan dan memberikan feedback
+Menengah (familiar dengan teknologi)
+Akses ke fitur pemesanan menu, pembayaran, dan pemberian feedback/rating
+3.5.2.4 Batasan (Constraints)
+1.  Sistem memerlukan koneksi internet untuk beroperasi; tidak diperlukan fitur offline
+2.  Pembayaran hanya melalui QRIS (tidak menerima pembayaran tunai)
+3.  Sistem merupakan penambahan fitur dari aplikasi yang sudah ada, bukan penggantian total
+4.  Perangkat utama yang digunakan adalah laptop
+5.  Waktu pengembangan terbatas (~18 hari) menggunakan metodologi Scrum
+6.  Tidak ada anggaran khusus untuk pengembangan
+3.5.2.5 Asumsi dan Ketergantungan (Assumptions and Dependencies)
+1.  Koneksi internet di lokasi café tersedia dan stabil selama jam operasional
+2.  Pemilik dan karyawan memiliki perangkat (laptop/smartphone) yang mendukung browser modern
+3.  Layanan payment gateway QRIS tersedia dan dapat diintegrasikan
+4.  Data menu dan produk sudah tersedia dan dapat diinput ke sistem baru
+5.  Pelanggan memiliki smartphone dengan kamera untuk scan QR code
+3.5.3 Kebutuhan Spesifik (Specific Requirements)
+3.5.3.1 Kebutuhan Antarmuka Eksternal
+a. Antarmuka Pengguna (User Interface)
+1.  Sistem menggunakan antarmuka berbasis web yang responsif
+2.  Desain menggunakan nuansa warna cokelat sesuai identitas brand Rindu Nicafe
+3.  Logo Rindu Nicafe ditampilkan di halaman utama sistem
+4.  Navigasi harus cepat dengan fitur yang mudah diakses
+5.  Antarmuka kasir harus sederhana untuk mempercepat proses input pesanan
+b. Antarmuka Perangkat Keras (Hardware Interface)
+1.  Laptop sebagai perangkat utama untuk akses sistem
+2.  Smartphone pelanggan untuk scan QR code pemesanan
+3.  Kamera smartphone untuk fitur absensi foto
+c. Antarmuka Perangkat Lunak (Software Interface)
+1.  Web browser modern (Chrome, Firefox, Safari, Edge)
+2.  Sistem pembayaran QRIS untuk proses pembayaran
+3.  Sistem operasi: Windows, macOS, Android, iOS
+d. Antarmuka Komunikasi (Communication Interface)
+1.  Protokol HTTP/HTTPS untuk komunikasi client-server
+2.  Koneksi internet untuk seluruh operasi sistem
+3.5.3.2 Kebutuhan Fungsional
+Kebutuhan fungsional telah dijabarkan pada Tabel 3.2 (Bagian 3.3). Berikut adalah detail spesifikasi untuk setiap kebutuhan fungsional utama:
+Tabel 3.6 Detail Spesifikasi Kebutuhan Fungsional
+Kode
+FR-01
+Nama Fungsi
+Manajemen Autentikasi
+Deskripsi
+Sistem menyediakan mekanisme autentikasi pengguna dengan username dan password
+Input
+Username, password
+Proses
+1.  Pengguna memasukkan username dan password
+2.  Sistem memverifikasi kredensial
+3.  Jika valid, sistem mengarahkan ke dashboard sesuai role
+4.  Jika tidak valid, sistem menampilkan pesan error
+ 
+Output
+Dashboard sesuai role (Owner: akses penuh; Karyawan: akses terbatas tanpa laporan keuangan)
+Prioritas
+Tinggi
+Kode
+FR-02
+Nama Fungsi
+Pemesanan via QR Code
+Deskripsi
+Pelanggan dapat melakukan pemesanan menu melalui scan
+QR code di meja café
+Input
+Scan QR code meja, pilihan menu, jumlah
+Proses
+1.  Pelanggan scan QR code di meja
+2.  Sistem menampilkan halaman menu (menu habis ditandai)
+3.  Pelanggan memilih menu dan menambahkan ke keranjang
+4.  Pelanggan melakukan checkout
+5.  Sistem menampilkan QRIS untuk pembayaran
+6.  Setelah pembayaran berhasil, pesanan masuk ke sistem
+Output
+Pesanan tercatat di sistem, bukti pembayaran digital, notifikasi ke karyawan
+Prioritas
+Tinggi
+Kode
+FR-06
+Nama Fungsi
+Manajemen Stok Bahan Baku
+Deskripsi
+Sistem mencatat dan mengelola stok bahan baku café
+Input
+Data bahan baku (nama, jumlah, satuan, batas minimum, masa kedaluwarsa)
+Proses
+1.                   Karyawan/Owner menginput data bahan baku
+2.                   Sistem mencatat stok dan melakukan update otomatis saat transaksi
+3.                   Jika stok mencapai batas minimum, sistem mengirim
+ 
+ 
+notifikasi
+4. Menu yang bahan bakunya habis otomatis ditandai sebagai tidak tersedia
+Output
+Data stok real-time, notifikasi restock, status ketersediaan menu
+Prioritas
+Tinggi
+Kode
+FR-09
+Nama Fungsi
+Absensi Karyawan
+Deskripsi
+Sistem menyediakan fitur pencatatan kehadiran karyawan dengan bukti foto
+Input
+Foto karyawan, timestamp
+Proses
+1.                   Karyawan mengakses fitur absensi
+2.                   Karyawan mengambil foto sebagai bukti kehadiran 
+3. Sistem mencatat waktu dan foto absensi (masuk dan keluar)
+4. Data absensi tersimpan dan dapat diakses oleh Owner
+Output
+Rekap absensi karyawan, bukti foto, data jam kerja untuk perhitungan gaji
+Prioritas
+Sedang
+Kode
+FR-11
+Nama Fungsi
+Sistem Feedback Pelanggan
+Deskripsi
+Pelanggan dapat memberikan rating dan ulasan setelah transaksi selesai
+Input
+Rating (1-5 bintang), komentar/ulasan, ID transaksi
+Proses
+1. Setelah transaksi selesai, sistem menampilkan form feedback
+ 
+2.  Pelanggan memberikan rating dan menulis ulasan
+3.  Sistem menyimpan data feedback
+4.  Owner dapat melihat rekap feedback di dashboard
+Output
+Data feedback pelanggan, rata-rata rating, rekap ulasan
+Prioritas
+Sedang
+Kode
+FR-12
+Nama Fungsi
+Dashboard Laporan
+Deskripsi
+Sistem menyediakan dashboard laporan keuangan dan operasional
+Input
+Periode laporan (harian, mingguan, bulanan), jenis laporan
+Proses
+1.  Owner memilih jenis dan periode laporan
+2.  Sistem mengolah data transaksi, stok, dan absensi
+3.  Sistem menampilkan laporan dalam bentuk tabel dan grafik
+4.  Owner dapat mengekspor laporan ke format PDF atau
+Excel
+Output
+Laporan keuangan (PDF/Excel), grafik penjualan, rekap stok, rekap absensi
+Prioritas
+Tinggi
+3.5.3.3 Kebutuhan Nonfungsional
+Kebutuhan nonfungsional telah dijabarkan secara lengkap pada Tabel 3.3 (Bagian 3.4).
+ 
+BAB 4
+PERANCANGAN SISTEM
+(Bagian 4.1 – 4.3: Deliverable System Analyst)
+4.1 Use Case Diagram
+Use Case Diagram menggambarkan interaksi antara aktor (pengguna) dengan sistem. Berdasarkan analisis kebutuhan fungsional, terdapat tiga aktor utama dalam sistem: Owner, Karyawan, dan Pelanggan.
+Tabel 4.1 Deskripsi Aktor
+No
+Aktor
+Deskripsi
+ 
+1
+Owner
+Pemilik café yang memiliki akses penuh ke seluruh fitur sistem termasuk manajemen menu, stok, karyawan, pemasok, laporan keuangan, dan dashboard manajemen
+2
+Karyawan
+Karyawan café yang dapat mengakses fitur transaksi harian (input pesanan via kasir), absensi, kelola stok, dan melihat riwayat transaksi. Tidak dapat mengakses laporan keuangan
+3
+Pelanggan
+Pengunjung café yang dapat melihat menu, memesan via QR code, melakukan pembayaran QRIS, memberikan feedback, dan melihat riwayat transaksi pribadi
+4
+Payment Gateway 
+Sistem eksternal pihak ketiga yang berperan sebagai supporting actor untuk memproses, memvalidasi, dan mengonfirmasi transaksi pembayaran digital QRIS secara otomatis  
+ 
+4.2 Use Case Scenario
+Berikut adalah skenario detail untuk setiap use case utama dalam sistem:
+Use Case Scenario UC-01: Login / Logout
+Use Case ID
+UC-01
+Use Case Name
+Login / Logout
+Aktor
+Owner, Karyawan
+Deskripsi
+Pengguna melakukan autentikasi untuk masuk ke sistem dan logout untuk keluar dari sistem
+Pre-condition
+Pengguna memiliki akun yang terdaftar dalam sistem (username dan password)
+Post-condition
+Pengguna berhasil masuk ke dashboard sesuai role atau berhasil keluar dari sistem
+Main Flow (Basic
+Flow)
+1.            Pengguna mengakses halaman login sistem
+2.            Pengguna memasukkan username dan password
+3.            Pengguna menekan tombol "Login"
+4.            Sistem memverifikasi kredensial pengguna
+5.            Sistem mengidentifikasi role pengguna (Owner/Karyawan)
+6.            Sistem mengarahkan pengguna ke dashboard sesuai role
+7.            Untuk logout, pengguna menekan tombol "Logout"
+8.            Sistem mengakhiri sesi dan mengarahkan ke halaman login
+Alternative Flow
+4a. Username atau password salah:
+4a.1. Sistem menampilkan pesan "Username atau password salah"
+4a.2. Pengguna kembali ke langkah 2
+Exception Flow
+- Koneksi internet terputus: Sistem menampilkan pesan "Tidak ada koneksi internet"
+Use Case Scenario UC-02: Kelola Menu
+Use Case ID
+UC-02
+Use Case Name
+Kelola Menu
+Aktor
+Owner
+Deskripsi
+Owner mengelola data menu meliputi menambah, mengubah, menghapus, dan mengatur status ketersediaan menu
+Pre-condition
+Owner telah login ke sistem
+Post-condition
+Data menu berhasil diperbarui dan ditampilkan di halaman pemesanan pelanggan
+Main Flow (Basic
+Flow)
+1.                   Owner memilih menu "Kelola Menu" di dashboard
+2.                   Sistem menampilkan daftar menu yang ada
+3.                   Owner memilih aksi (Tambah/Edit/Hapus)
+4.                   [Tambah] Owner mengisi form menu baru (nama, harga, kategori, gambar, deskripsi)
+5.                   Owner menekan tombol "Simpan"
+6.                   Sistem menyimpan data dan menampilkan pesan sukses
+7.                   Sistem memperbarui tampilan menu di halaman pemesanan
+Alternative Flow
+3a. [Edit]: Owner memilih menu yang akan diedit → Sistem menampilkan form dengan data terisi → Owner mengubah data →
+Simpan
+3b. [Hapus]: Owner memilih menu yang akan dihapus → Sistem menampilkan konfirmasi → Owner mengkonfirmasi → Menu dihapus
+Exception Flow
+- Data tidak lengkap: Sistem menampilkan pesan validasi untuk field yang wajib diisi
+Use Case Scenario UC-03: Pesan via QR Code
+Use Case ID
+UC-03
+Use Case Name
+Pesan via QR Code
+Aktor
+Pelanggan
+Deskripsi
+Pelanggan melakukan pemesanan menu melalui scan QR code yang tersedia di meja café
+Pre-condition
+Pelanggan berada di café dan memiliki smartphone dengan kamera
+Post-condition
+Pesanan berhasil tercatat di sistem dan pembayaran telah diterima
+Main Flow (Basic
+Flow)
+1. Pelanggan scan QR code di meja menggunakan smartphone 2. Sistem menampilkan halaman menu dengan nomor meja
+teridentifikasi
+3.                   Pelanggan melihat daftar menu (menu habis ditandai/di-disable)
+4.                   Pelanggan memilih menu dan menentukan jumlah
+5.                   Pelanggan menambahkan menu ke keranjang
+6.                   Pelanggan menekan tombol "Checkout"
+7.                   Sistem menampilkan ringkasan pesanan dan total harga
+8.                   Sistem menampilkan QR QRIS untuk pembayaran
+9.                   Pelanggan melakukan pembayaran via QRIS
+10.                Sistem memvalidasi pembayaran
+11.                Sistem mencatat pesanan dan mengirimkan notifikasi ke karyawan
+12.                Sistem mengirimkan bukti pembayaran digital ke pelanggan
+Alternative Flow
+3a. Menu yang dipilih habis: Sistem menampilkan notifikasi "Menu tidak tersedia" dan mencegah pelanggan menambahkan ke keranjang
+6a. Pelanggan ingin takeaway: Pelanggan memilih opsi
+"Takeaway" sebelum checkout
+Exception Flow
+10a. Pembayaran gagal: Sistem menampilkan pesan "Pembayaran gagal, silahkan coba lagi" dan kembali ke langkah 8
+Use Case Scenario UC-04: Pesan via Kasir
+Use Case ID
+UC-04
+Use Case Name
+Pesan via Kasir
+Aktor
+Karyawan, Owner
+Deskripsi
+Karyawan/Owner menginput pesanan untuk pelanggan yang memesan langsung di kasir
+Pre-condition
+Karyawan/Owner telah login ke sistem
+Post-condition
+Pesanan berhasil tercatat di sistem
+Main Flow (Basic
+Flow)
+1.        Karyawan memilih menu "Input Pesanan" di dashboard
+2.        Sistem menampilkan daftar menu yang tersedia
+3.        Karyawan memilih menu dan jumlah sesuai pesanan pelanggan
+4.        Karyawan memilih tipe pesanan (dine-in/takeaway)
+5.        Karyawan menentukan nomor meja (jika dine-in)
+6.        Karyawan menekan tombol "Proses Pesanan"
+7.        Sistem menampilkan QR QRIS untuk pembayaran pelanggan
+8.        Pelanggan melakukan pembayaran
+9.        Sistem memvalidasi pembayaran dan mencatat pesanan
+10.     Sistem mengirimkan bukti pembayaran digital
+Alternative Flow
+3a. Menu habis: Karyawan menginformasikan pelanggan dan menyarankan menu lain
+Exception Flow
+8a. Pembayaran gagal: Karyawan meminta pelanggan untuk mencoba kembali
+Use Case Scenario UC-05: Bayar via QRIS
+Use Case ID
+UC-05
+Use Case Name
+Bayar via QRIS
+Aktor
+Pelanggan, payment gateaway
+Deskripsi
+Pelanggan melakukan pembayaran tagihan pesanan secara non tunai melalui scan QRIS yang digenerate oleh payment gateaway
+Pre-condition
+Pelanggan telah melakukan checkout pesanan dan total tagihan telah dihitung
+Post-condition
+Status pembayaran tervalidasi sukses di database dan pesanan diteruskan ke karyawan
+Main Flow (Basic
+Flow)
+1.Pelanggan melakukan checkout pesanan (via QR Code atau dibantu Kasir)
+2. Payment  men-generate dan menampilkan kode QRIS dinamis unik beserta nominal total belanja
+3.Pelanggan membuka aplikasi e-wallet atau mobile banking yang mendukung QRIS
+4. Pelanggan memindai (scan) kode QRIS tersebut dari smartphone pelanggan
+5. Pelanggan melakukan konfirmasi pembayaran dan memasukkan
+PIN e-wallet/bank
+6. Payment gateway memvalidasi transaksi secara otomatis dan mengirimkan webhook status sukses ke sistem Rindu Nicafe
+7. Sistem memperbarui status pembayaran pesanan menjadi
+"Sudah Bayar"
+8.Sistem mengirimkan bukti pembayaran digital ke pelanggan dan meneruskan notifikasi pesanan ke layar Karyawan
+Alternative Flow
+6a. Pembayaran manual (Kasir): Jika terjadi gangguan e-wallet pelanggan, pelanggan membayar dengan menunjukkan bukti pembayaran manual ke kasir, lalu Karyawan melakukan bypass/konfirmasi manual di kasir
+Exception Flow
+6b. Transaksi Kadaluarsa: Jika dalam waktu 5 menit pembayaran tidak terdeteksi, sistem membatalkan kode QRIS dan menampilkan notifikasi "Waktu Pembayaran Habis, silahkan checkout ulang"
+Use Case Scenario UC-06: Kelola Stok
+Use Case ID
+UC-06
+Use Case Name
+Kelola Stok
+Aktor
+Owner, Karyawan
+Deskripsi
+Owner/Karyawan mengelola data stok bahan baku dan memperbarui status stok
+Pre-condition
+Pengguna telah login ke sistem
+Post-condition
+Data stok berhasil diperbarui dan status ketersediaan menu terupdate
+Main Flow (Basic
+Flow)
+1.                   Pengguna memilih menu "Manajemen Stok" di dashboard
+2.                   Sistem menampilkan daftar bahan baku beserta jumlah stok saat ini
+3.                   Pengguna memilih bahan baku yang akan diperbarui
+4.                   Pengguna memasukkan jumlah stok baru
+(penambahan/pengurangan)
+5.                   Pengguna menekan tombol "Update Stok"
+6.                   Sistem memperbarui data stok
+7.                   Jika stok mencapai batas minimum, sistem mengirim notifikasi restock
+8.                   Jika bahan baku tertentu habis, sistem otomatis menandai menu terkait sebagai "Habis"
+Alternative Flow
+3a. Pengguna menambah bahan baku baru: Pengguna mengisi form data bahan baku baru (nama, satuan, batas minimum, masa kedaluwarsa)
+Exception Flow
+- Nilai stok negatif: Sistem menampilkan pesan validasi "Stok tidak boleh negatif"
+Use Case Scenario UC-07: Absensi Karyawan
+Use Case ID
+UC-07
+Use Case Name
+Absensi Karyawan
+Aktor
+Karyawan
+Deskripsi
+Karyawan melakukan pencatatan kehadiran (clock-in dan clockout) dengan bukti foto
+Pre-condition
+Karyawan telah login ke sistem
+Post-condition
+Data absensi (waktu dan foto) tersimpan di sistem
+Main Flow (Basic
+Flow)
+1.            Karyawan memilih menu "Absensi" di dashboard
+2.            Sistem menampilkan halaman absensi dengan status hari ini
+3.            Karyawan memilih "Clock In" (saat datang) atau "Clock Out"
+ 
+(saat pulang)
+4.            Sistem mengaktifkan kamera untuk pengambilan foto
+5.            Karyawan mengambil foto selfie sebagai bukti kehadiran
+6.            Sistem mencatat waktu dan menyimpan foto
+7.            Sistem menampilkan konfirmasi absensi berhasil
+8.            Data absensi otomatis masuk ke rekap kehadiran
+Alternative Flow
+3a. Karyawan sudah clock-in: Tombol "Clock In" di-disable, hanya "Clock Out" yang aktif
+3b. Karyawan sudah clock-out: Kedua tombol di-disable
+Exception Flow
+4a. Kamera tidak tersedia: Sistem menampilkan pesan "Kamera tidak terdeteksi, pastikan izin kamera diberikan"
+Use Case Scenario UC-08: Kelola Karyawan
+Use Case ID
+UC-08
+Use Case Name
+Kelola Karyawan
+Aktor
+Owner
+Deskripsi
+Owner mengelola data karyawan, melihat rekap absensi, dan menghitung gaji
+Pre-condition
+Owner telah login ke sistem
+Post-condition
+Data karyawan berhasil diperbarui
+Main Flow (Basic
+Flow)
+1.                   Owner memilih menu "Kelola Karyawan" di dashboard
+2.                   Sistem menampilkan daftar karyawan
+3.                   Owner dapat memilih aksi: Lihat Detail, Tambah, Edit, atau
+Lihat Absensi
+4.                   [Lihat Detail]: Sistem menampilkan profil karyawan, rekap absensi, dan perhitungan gaji
+5.                   [Tambah]: Owner mengisi data karyawan baru (nama, username, password, kontak) 6. Owner menekan tombol "Simpan"
+7. Sistem menyimpan data dan menampilkan konfirmasi
+Alternative Flow
+3a. [Edit]: Owner mengubah data karyawan yang sudah ada
+3b. [Lihat Absensi]: Sistem menampilkan rekap absensi per bulan
+ 
+dengan foto bukti kehadiran
+Exception Flow
+- Data tidak lengkap: Sistem menampilkan pesan validasi
+Use Case Scenario UC-09: Beri Feedback
+Use Case ID
+UC-09
+Use Case Name
+Beri Feedback
+Aktor
+Pelanggan
+Deskripsi
+Pelanggan memberikan rating dan ulasan terhadap layanan café setelah transaksi selesai
+Pre-condition
+Pelanggan telah menyelesaikan transaksi
+Post-condition
+Feedback pelanggan tersimpan di sistem dan dapat diakses oleh
+Owner
+Main Flow (Basic
+Flow)
+1.                   Setelah transaksi selesai, sistem menampilkan notifikasi untuk memberikan feedback
+2.                   Pelanggan membuka halaman feedback
+3.                   Pelanggan memberikan rating (1-5 bintang)
+4.                   Pelanggan menulis komentar/ulasan (opsional)
+5.                   Pelanggan menekan tombol "Kirim Feedback"
+6.                   Sistem menyimpan feedback dan menampilkan ucapan terimakasih
+Alternative Flow
+2a. Pelanggan memilih untuk tidak memberikan feedback:
+Pelanggan menutup notifikasi
+Exception Flow
+- Tidak ada
+Use Case Scenario UC-10: Lihat Feedback
+Use Case ID
+UC-10
+Use Case Name
+Lihat Feedback
+Aktor
+Owner
+Deskripsi
+Owner mengakses dan melihat daftar penilaian (rating) dan ulasan
+(komentar) yang dikirim oleh pelanggan untuk memantau performa café
+Pre-condition
+Owner telah login ke sistem
+Post-condition
+Owner melihat daftar umpan balik pelanggan dan ringkasan statistik kepuasan pelanggan
+Main Flow (Basic
+Flow)
+1.                   Owner memilih menu "Lihat Feedback" di dashboard admin
+2.                   Sistem menarik data feedback dari database
+3.                   Sistem menampilkan daftar ulasan pelanggan beserta rating (1-5 bintang), nama menu yang dipesan, nomor meja, ulasan tulisan, dan tanggal pengiriman
+4.                   Owner dapat melihat rekapitulasi penilaian untuk dijadikan bahan evaluasi menu dan pelayanan café
+Alternative Flow
+3a. Filter Ulasan: Owner melakukan filter feedback berdasarkan rating tertentu (misal: hanya melihat ulasan bintang 1 & 2 untuk menindaklanjuti keluhan)
+Exception Flow
+2a. Tidak ada data feedback: Sistem menampilkan pesan "Belum ada ulasan dari pelanggan"
+Use Case Scenario UC-11: Dashboard Laporan
+Use Case ID
+UC-11
+Use Case Name
+Dashboard Laporan
+Aktor
+Owner
+Deskripsi
+Owner melihat laporan keuangan dan operasional melalui dashboard
+Pre-condition
+Owner telah login ke sistem
+Post-condition
+Laporan ditampilkan sesuai periode yang dipilih
+Main Flow (Basic
+Flow)
+1.                   Owner memilih menu "Dashboard Laporan"
+2.                   Sistem menampilkan ringkasan harian (total transaksi,pendapatan, jumlah pesanan)
+3.                   Owner memilih periode laporan (harian/mingguan/bulanan) 
+4. Sistem mengolah data dan menampilkan laporan dalam bentuk tabel dan grafik
+5.            Owner menekan tombol "Ekspor" untuk mengunduh laporan
+6.            Sistem menyediakan pilihan format (PDF/Excel)
+7.            Sistem men-generate file laporan dan mengunduh ke perangkat
+Alternative Flow
+3a. Owner memilih filter tambahan: Berdasarkan kategori menu, metode pesanan (QR/kasir), dll.
+Exception Flow
+- Tidak ada data untuk periode yang dipilih: Sistem menampilkan pesan "Belum ada data transaksi untuk periode ini"
+Use Case Scenario UC-12: Ekspor Laporan
+Use Case ID
+UC-12
+Use Case Name
+Ekspor Laporan
+Aktor
+Owner
+Deskripsi
+Owner mengekspor data laporan keuangan dan operasional ke dalam format file PDF atau Excel untuk keperluan arsip, analisis offline, atau pelaporan kepada pihak terkait
+Pre-condition
+Owner telah login ke sistem dan berada di halaman Dashboard
+Laporan dengan data laporan yang sudah ditampilkan
+Post-condition
+File laporan dalam format PDF atau Excel berhasil di-generate dan terunduh ke perangkat Owner
+Main Flow (Basic
+Flow)
+1.                   Owner menekan tombol "Ekspor Laporan" pada halaman
+Dashboard Laporan
+2.                   Sistem menampilkan pilihan format ekspor (PDF / Excel)
+3.                   Owner memilih format yang diinginkan
+4.                   Sistem mengolah dan men-generate file laporan sesuai periode dan format yang dipilih
+5.                   Sistem secara otomatis mengunduh file laporan ke perangkat
+ 
+Owner
+6. Sistem menampilkan notifikasi "Laporan berhasil diunduh"
+Alternative Flow
+3a. [PDF]: Sistem men-generate file .pdf dengan layout tabel dan grafik siap cetak
+3b. [Excel]: Sistem men-generate file .xlsx dengan data mentah dalam format spreadsheet yang dapat diolah lebih lanjut
+Exception Flow
+4a. Data laporan kosong: Sistem menampilkan pesan "Tidak ada data untuk diekspor pada periode ini"
+4b. Gagal generate file: Sistem menampilkan pesan "Terjadi kesalahan saat membuat file, silakan coba lagi"
+Use Case Scenario UC-13: Kelola Pemasok
+Use Case ID
+UC-13
+Use Case Name
+Kelola Pemasok
+Aktor
+Owner
+Deskripsi
+Owner mengelola daftar pemasok bahan baku (supplier) meliputi menambah, mengubah, dan menghapus profil pemasok
+Pre-condition
+Owner telah login ke sistem
+Post-condition
+Data pemasok terupdate di database untuk referensi pembelian bahan baku
+Main Flow (Basic
+Flow)
+1. Owner memilih menu "Kelola Pemasok" di dashboard admin 2. Sistem menampilkan daftar pemasok saat ini (nama supplier, kontak, kategori bahan baku)
+3.                   Owner memilih tombol "Tambah Pemasok Baru"
+4.                   Owner mengisi form data pemasok (Nama Pemasok, Nomor
+Telepon, Alamat, Jenis Bahan yang disuplai)
+5.                   Owner menekan tombol "Simpan"
+6.                   Sistem menyimpan data pemasok baru dan memperbarui daftar pemasok
+Alternative Flow
+3a. Edit Data Pemasok: Owner memilih salah satu pemasok → memilih "Edit" → mengubah informasi → menekan "Simpan" 3b. Hapus Pemasok: Owner memilih salah satu pemasok →
+ 
+memilih "Hapus" → mengkonfirmasi penghapusan → data terhapus dari database
+Exception Flow
+4a. Data tidak lengkap: Sistem menampilkan pesan validasi
+"Nama Pemasok dan Kontak wajib diisi"
+Use Case Scenario UC-14: Lihat Riwayat Transaksi
+Use Case ID
+UC-14
+Use Case Name
+Lihat Riwayat Transaksi
+Aktor
+Owner, Karyawan, Pelanggan
+Deskripsi
+Pengguna melihat riwayat transaksi pembelian (pelanggan hanya melihat transaksi miliknya, karyawan melihat transaksi harian, owner melihat seluruh transaksi)
+Pre-condition
+Pengguna telah login ke sistem (untuk pelanggan: mengakses menu riwayat melalui tautan pemesanan)
+Post-condition
+Riwayat transaksi ditampilkan secara detail sesuai role hak akses pengguna
+Main Flow (Basic
+Flow)
+1.                   Pengguna memilih menu "Riwayat Transaksi"
+2.                   Sistem mengambil data transaksi dari database disesuaikan dengan role aktor
+3.                   Sistem menampilkan daftar riwayat transaksi (ID Transaksi,
+Waktu, Detail Menu, Total Harga, Status Pembayaran)
+4.                   Pengguna memilih salah satu baris transaksi untuk melihat detail struk digital
+Alternative Flow
+3a. Owner melakukan pencarian (search) transaksi berdasarkan ID
+Transaksi atau filter berdasarkan tanggal
+Exception Flow
+2a. Data transaksi kosong: Sistem menampilkan pesan "Belum ada riwayat transaksi"
+Use Case Scenario UC-15: Lihat Menu & Keranjang
+ 
+Use Case ID
+UC-15
+Use Case Name
+Lihat Menu & Keranjang
+Aktor
+Pelanggan
+Deskripsi
+Pelanggan menjelajahi daftar menu café, melihat detail menu, dan mengelola item belanjaan di dalam keranjang belanja sebelum checkout
+Pre-condition
+Pelanggan telah masuk ke aplikasi pemesanan (via scan QR meja)
+Post-condition
+Item pesanan tersimpan di dalam keranjang belanja pelanggan
+Main Flow (Basic
+Flow)
+1.                   Pelanggan membuka halaman utama pemesanan
+2.                   Sistem menampilkan daftar menu yang dikelompokkan berdasarkan kategori (Kopi, Non-Kopi, Makanan Ringan) 
+3. Pelanggan memilih menu and menekan tombol "Tambah ke
+Keranjang" setelah menentukan kuantitas
+4.                   Pelanggan membuka ikon "Keranjang Belanja"
+5.                   Sistem menampilkan daftar item yang dipilih, kuantitas, harga per item, subtotal, dan total harga sementara
+6.                   Pelanggan dapat menambah, mengurangi kuantitas, atau menghapus item dari keranjang
+7.                   Pelanggan siap untuk menekan tombol "Checkout" untuk melakukan pemesanan
+Alternative Flow
+3a. Menu kosong/habis: Sistem menonaktifkan tombol "Tambah ke Keranjang" dan menampilkan label "Sold Out"
+Exception Flow
+6a. Keranjang kosong: Jika pelanggan mencoba checkout saat keranjang kosong, sistem menampilkan notifikasi "Keranjang belanja Anda masih kosong"
+ 
+4.3 Activity Diagram
+Activity Diagram menggambarkan alur aktivitas dalam setiap proses bisnis utama. Berikut adalah Activity Diagram untuk proses-proses utama dalam sistem: 4.3.1 Activity Diagram – Proses Login
+4.3.2 Activity Diagram – Proses Pemesanan via QR Code
+4.3.3 Activity Diagram – Proses Manajemen Stok
+4.3.4 Activity Diagram – Proses Absensi Karyawan
+4.3.5 Activity Diagram – Proses Feedback Pelanggan
+4.3.6 Activity Diagram – Proses Generate Laporan
+ 
+Sequence Diagram - SD-01 Login & Logout
+Sequence Diagram - SD-02 Pemesanan via QR Code
+Sequence Diagram - SD-03 Pemesanan via Kasir
+Sequence Diagram - SD-04 Manajemen Stok
+Sequence Diagram - SD-05 Absensi Karyawan
+Sequence Diagram - SD-06 Feedback Pelanggan
+Sequence Diagram - SD-07 Dashboard & Ekspor Laporan
+Link : 
+https://drive.google.com/file/d/1PUyjjXAGIvJp7PuVU7IE2Jb6NqwUMSR7/view?usp=sharing
+Class Diagram
+Link : 
+https://drive.google.com/file/d/1TQiCntqg5E1LbxkH0ePrvmbK5TYiiiqi/view?usp=sharing
+ERD
+Link : 
+https://drive.google.comx/file/d/1IIvJGYN6vMSkCiacp2hmV4QJ8cZNdc2a/view?usp=sharing
+Mockup

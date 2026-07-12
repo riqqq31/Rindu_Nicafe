@@ -1,0 +1,315 @@
+/* Dashboard Header */
+.header {
+  padding: 1.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.dateText {
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 1.5rem 2rem;
+  }
+  .greeting {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .contentGrid {
+    grid-template-columns: repeat(12, 1fr);
+    padding: 0 2rem;
+  }
+}
+
+/* Cards Shared Styles */
+.card {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--outline-variant);
+  box-shadow: 0px 4px 20px rgba(62, 39, 35, 0.05);
+}
+
+/* Absensi Card */
+.absensiCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .absensiCard {
+    grid-column: span 6;
+  }
+}
+
+.cardTitleFlex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.timeContainer {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.clockDisplay {
+  font-size: 3rem;
+  line-height: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.statusBadge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  background-color: var(--error-container);
+  color: var(--error);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.clockInBtn {
+  width: 100%;
+  background-color: var(--primary);
+  color: #ffffff; /* Mengganti warna font menjadi putih terang */
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.clockInBtn:hover {
+  opacity: 0.9;
+}
+
+.clockInBtn:active {
+  transform: scale(0.95);
+}
+
+/* Quick Actions Container */
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .actionsGrid {
+    grid-column: span 6;
+  }
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionCard:hover {
+  background-color: var(--surface-container-low);
+}
+
+.actionIconCircle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 219, 207, 0.3); /* secondary-fixed/30 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+}
+
+.actionCard:hover .actionIconCircle {
+  transform: scale(1.05);
+}
+
+.actionIcon {
+  font-size: 1.875rem;
+  color: var(--primary);
+}
+
+.actionText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Data Table Container */
+.tableContainerWrapper {
+  padding: 0 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .tableContainerWrapper {
+    padding: 0 2rem;
+  }
+}
+
+.tableContainer {
+  overflow: hidden;
+}
+
+.tableHeader {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--outline-variant);
+  background-color: var(--surface-container-low);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seeAllLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.seeAllLink:hover {
+  text-decoration: underline;
+}
+
+.tableOverflow {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--outline-variant);
+  background-color: var(--surface-container-lowest);
+}
+
+.table th.textRight {
+  text-align: right;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--outline-variant);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.table tbody tr:hover {
+  background-color: var(--surface-container-low);
+}
+
+.table td {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: var(--on-surface);
+}
+
+.tdId {
+  color: var(--on-surface-variant);
+}
+
+.tdBold {
+  font-weight: 600;
+}
+
+.tdRight {
+  text-align: right;
+}
+
+.statusSelect {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0.25rem 1.75rem 0.25rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.35rem center;
+  background-size: 0.5rem auto;
+}
+
+.statusBadgeAntre {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--error-container);
+  color: var(--error);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusBadgeDimasak {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--secondary-fixed);
+  color: var(--on-secondary-fixed-variant);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusBadgeSelesai {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--tertiary-fixed);
+  color: var(--on-tertiary-fixed);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
