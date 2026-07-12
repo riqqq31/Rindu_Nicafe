@@ -1,0 +1,14 @@
+# Ignore document files
+*.docx
+*.pdf
+
+# Ignore scripts & output
+*.py
+*.txt
+
+# Ignore Markdown files
+*.md
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
