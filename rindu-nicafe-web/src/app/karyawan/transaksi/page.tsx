@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getTransaksiHarian, updateStatusPesanan } from "@/app/actions/transaksi";
 import styles from "./transaksi.module.css";
+import StrukDigital from "@/components/StrukDigital";
 
 export default function TransaksiPage() {
   const [transaksi, setTransaksi] = useState<any[]>([]);
@@ -104,46 +105,21 @@ export default function TransaksiPage() {
               <h2 className={styles.modalTitle}>Struk Digital - #{selectedTx.id}</h2>
               <button className={styles.closeButton} onClick={() => setSelectedTx(null)}>&times;</button>
             </div>
-            
             <div>
-              <p style={{ marginBottom: "16px", color: "#666" }}>
-                {formatTanggal(selectedTx.waktu)}
-              </p>
+              <StrukDigital pesanan={selectedTx} />
 
-              {selectedTx.detail_pesanan?.map((detail: any) => (
-                <div key={detail.id} className={styles.strukItem}>
-                  <div>
-                    <strong>{detail.menu.nama}</strong>
-                    <br />
-                    <span style={{ fontSize: "14px", color: "#666" }}>
-                      {detail.jumlah} x {formatRupiah(detail.menu.harga)}
-                    </span>
-                  </div>
-                  <div>{formatRupiah(detail.subtotal)}</div>
-                </div>
-              ))}
-
-              <div className={styles.strukTotal}>
-                <span>Total</span>
-                <span>{formatRupiah(selectedTx.total)}</span>
+              <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+                {selectedTx.status === "dibayar" && (
+                  <button onClick={() => handleUpdateStatus("diproses")} style={{ flex: 1, padding: "10px", backgroundColor: "var(--primary)", color: "white", borderRadius: "8px", fontWeight: "bold" }}>
+                    Tandai Diproses
+                  </button>
+                )}
+                {selectedTx.status === "diproses" && (
+                  <button onClick={() => handleUpdateStatus("selesai")} style={{ flex: 1, padding: "10px", backgroundColor: "#2e7d32", color: "white", borderRadius: "8px", fontWeight: "bold" }}>
+                    Tandai Selesai
+                  </button>
+                )}
               </div>
-
-              <div className={styles.paymentMethod}>
-                Metode Pembayaran: {selectedTx.pembayaran?.metode || "-"} 
-                <br />
-                Status Pembayaran: {selectedTx.pembayaran?.status || "-"}
-              </div>
-
-              {selectedTx.status === "dibayar" && (
-                <button onClick={() => handleUpdateStatus("diproses")} style={{ width: "100%", padding: "10px", marginTop: "16px", backgroundColor: "var(--primary)", color: "white", borderRadius: "8px", fontWeight: "bold" }}>
-                  Tandai Diproses
-                </button>
-              )}
-              {selectedTx.status === "diproses" && (
-                <button onClick={() => handleUpdateStatus("selesai")} style={{ width: "100%", padding: "10px", marginTop: "16px", backgroundColor: "#2e7d32", color: "white", borderRadius: "8px", fontWeight: "bold" }}>
-                  Tandai Selesai
-                </button>
-              )}
             </div>
           </div>
         </div>

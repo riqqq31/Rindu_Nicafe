@@ -130,6 +130,27 @@ export async function simulateQrisPayment(pesanan_id: number) {
       }
     }
 
+    // 5. Create Notification for new order
+    const pesanNotif = `Pesanan baru #${pesanan.id} (${pesanan.tipe_pesanan === "dine_in" ? "Dine In" : "Takeaway"}) telah dibayar.`;
+    await tx.notifikasi.createMany({
+      data: [
+        {
+          tipe: "pesanan_baru",
+          pesan: pesanNotif,
+          tujuan_role: "karyawan",
+          referensi_id: pesanan.id,
+          status: "belum_dibaca"
+        },
+        {
+          tipe: "pesanan_baru",
+          pesan: pesanNotif,
+          tujuan_role: "owner",
+          referensi_id: pesanan.id,
+          status: "belum_dibaca"
+        }
+      ]
+    });
+
     return pesanan;
   });
 }

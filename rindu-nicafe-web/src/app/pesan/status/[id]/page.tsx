@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import styles from "../../pesan.module.css";
 import { getOrderStatus, submitCustomerFeedback } from "@/app/actions/pesan";
+import StrukDigital from "@/components/StrukDigital";
 
 export default function StatusPage() {
   const params = useParams();
   const id = Number(params.id);
+  const router = useRouter();
   
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [showStruk, setShowStruk] = useState(false);
   
   // Feedback state
   const [rating, setRating] = useState(0);
@@ -43,6 +46,11 @@ export default function StatusPage() {
       // Refresh order to show it has feedback now
       const data = await getOrderStatus(id);
       if (data) setOrder(data);
+      
+      // Redirect to menu page after a short delay so they can see the thank you message
+      setTimeout(() => {
+        router.push("/pesan");
+      }, 2000);
     } catch (e) {
       console.error(e);
       alert("Gagal mengirim feedback.");
@@ -95,6 +103,16 @@ export default function StatusPage() {
         </div>
       </div>
 
+      {isSuccess && (
+        <button 
+          onClick={() => setShowStruk(true)}
+          style={{ width: "100%", maxWidth: "400px", padding: "12px", backgroundColor: "var(--surface-container)", color: "var(--on-surface)", border: "1px solid var(--outline)", borderRadius: "8px", fontWeight: "bold", marginBottom: "1rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", cursor: "pointer" }}
+        >
+          <span className="material-symbols-outlined">receipt_long</span>
+          Lihat Struk Digital
+        </button>
+      )}
+
       {/* Feedback Section if status is selesai */}
       {order.status === "selesai" && !order.feedback && (
         <div className={styles.feedbackBox}>
@@ -137,6 +155,21 @@ export default function StatusPage() {
           <span className="material-symbols-outlined" style={{ color: "var(--on-secondary-container)", fontSize: "2rem", marginBottom: "0.5rem" }}>favorite</span>
           <h3 style={{ color: "var(--on-secondary-container)", marginBottom: "0.25rem" }}>Terima Kasih!</h3>
           <p style={{ fontSize: "0.875rem", color: "var(--on-secondary-container)" }}>Penilaian Anda telah kami terima.</p>
+        </div>
+      )}
+
+      {/* Modal Struk Digital */}
+      {showStruk && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.5)", zIndex: 9999, display: "flex", justifyContent: "center", alignItems: "center", padding: "16px" }} onClick={() => setShowStruk(false)}>
+          <div style={{ backgroundColor: "transparent", position: "relative", width: "100%", maxWidth: "350px" }} onClick={(e) => e.stopPropagation()}>
+            <button 
+              onClick={() => setShowStruk(false)}
+              style={{ position: "absolute", top: "-40px", right: "0", background: "none", border: "none", color: "white", cursor: "pointer" }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: "2rem" }}>close</span>
+            </button>
+            <StrukDigital pesanan={order} />
+          </div>
         </div>
       )}
     </div>

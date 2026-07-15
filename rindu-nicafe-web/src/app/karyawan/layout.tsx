@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "@/app/actions/auth";
 import { useState, useEffect } from "react";
+import NotificationBell from "@/components/NotificationBell";
 
 export default function KaryawanLayout({
   children,
@@ -40,10 +41,7 @@ export default function KaryawanLayout({
           </span>
         </div>
         <div className={styles.headerActions}>
-          <button className={styles.iconButton}>
-            <span className="material-symbols-outlined">notifications</span>
-            <span className={styles.badge}></span>
-          </button>
+          <NotificationBell role="karyawan" />
           <button 
             className={`${styles.iconButton} ${styles.menuButton}`} 
             onClick={() => setIsSidebarOpen(true)}

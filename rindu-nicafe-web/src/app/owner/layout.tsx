@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "@/app/actions/auth";
 import { useEffect, useState } from "react";
+import NotificationBell from "@/components/NotificationBell";
 
 export default function OwnerLayout({
   children,
@@ -239,6 +240,7 @@ export default function OwnerLayout({
                pathname === "/owner/menu" ? "Manajemen Menu" : 
                pathname === "/owner/meja" ? "Manajemen Meja" : 
                pathname === "/owner/transaksi" ? "Riwayat Pesanan" :
+               pathname === "/owner/pos" ? "Input Pesanan (POS)" :
                pathname === "/owner/karyawan" ? "Manajemen Karyawan" :
                pathname === "/owner/laporan" ? "Dashboard Laporan" :
                pathname === "/owner/feedback" ? "Feedback Pelanggan" :
@@ -247,10 +249,7 @@ export default function OwnerLayout({
             <p className={styles.dateText}>{dateString}</p>
           </div>
           <div className={styles.headerActions}>
-            <button className={styles.iconButton}>
-              <span className="material-symbols-outlined">notifications</span>
-              <span className={styles.badge}></span>
-            </button>
+            <NotificationBell role="owner" />
             <button 
               className={`${styles.iconButton} ${styles.menuButton}`} 
               onClick={() => setIsSidebarOpen(true)}

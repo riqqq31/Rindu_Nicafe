@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./karyawan-dashboard.module.css";
 import { getAllTransaksi, updateStatusPesanan } from "@/app/actions/transaksi";
+import NotificationBell from "@/components/NotificationBell";
 
 export default function KaryawanDashboardPage() {
   const [timeString, setTimeString] = useState("");
@@ -87,8 +88,13 @@ export default function KaryawanDashboardPage() {
     <>
       {/* Dashboard Header */}
       <div className={styles.header}>
-        <h1 className={styles.greeting}>Halo, Andi</h1>
-        <p className={styles.dateText}>{dateString}</p>
+        <div>
+          <h1 className={styles.greeting}>Halo, Andi</h1>
+          <p className={styles.dateText}>{dateString}</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <NotificationBell role="karyawan" />
+        </div>
       </div>
 
       {/* Content Grid */}
