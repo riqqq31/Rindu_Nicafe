@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
 import path from "path";
 
 const globalForPrisma = globalThis as unknown as {
@@ -7,8 +7,14 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const dbPath = path.join(process.cwd(), "dev.db");
-  const adapter = new PrismaBetterSqlite3({ url: dbPath });
+  // Production (Vercel): pakai Turso
+  // Development: pakai SQLite lokal via libsql file driver
+  const url =
+    process.env.TURSO_DATABASE_URL ??
+    `file:${path.join(process.cwd(), "dev.db")}`;
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+
+  const adapter = new PrismaLibSql({ url, authToken });
   return new PrismaClient({ adapter });
 }
 
